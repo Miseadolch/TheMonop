@@ -1,6 +1,8 @@
 import os
 import pygame
 import random
+
+from pygame.sprite import Sprite
 pygame.init()
 main_dict = {1:(650, 650, 100, 100),
 40:(594, 650, 56, 100),
@@ -60,21 +62,46 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 image = load_image("monop.png")
-chiper = load_image('fishka.png')
 monop = pygame.sprite.Sprite(all_sprites)
-chip = pygame.sprite.Sprite(all_sprites)
 monop.image = image
-chip.image = chiper
 monop.rect = monop.image.get_rect()
-chip.rect = chip.image.get_rect()
 monop.rect.x = 50
 monop.rect.y = 50
-chip.rect.x = main_dict[1][0]
-chip.rect.y = main_dict[1][1]
 pygame.draw.rect(screen, 'white', (0, 0, 50, 50))
 screen.fill(pygame.Color("black"))
 running = True
-cordinate_chip = 1
+changer = 1
+
+class Chip(Sprite):
+    def __init__(self, ident, name_image):
+        self.cordinate_chip = 1
+        self.ident = ident
+        chiper = load_image(name_image)
+        self.chip = pygame.sprite.Sprite(all_sprites)
+        self.chip.image = chiper
+        self.chip.rect = self.chip.image.get_rect()
+        self.chip.rect.x = main_dict[1][1] + self.ident[0]
+        self.chip.rect.y = main_dict[1][0] + self.ident[1]
+        
+    
+    def step(self):
+        screen.fill(pygame.Color("black"))
+        num = (random.randint(1,6),random.randint(1,6))
+        if sum(num) + self.cordinate_chip > 40:
+            self.cordinate_chip = self.cordinate_chip - 40
+        self.chip.rect.x = main_dict[self.cordinate_chip + sum(num)][1] + self.ident[0]
+        self.chip.rect.y = main_dict[self.cordinate_chip + sum(num)][0] + self.ident[1]
+        self.cordinate_chip += sum(num)
+        f1 = pygame.font.Font(None, 50)
+        if sum(num) <= 4:
+            text1 = f1.render(f'Выпало {sum(num)} хода', True, (0, 255, 0))
+        else:
+            text1 = f1.render(f'Выпало {sum(num)} ходов', True, (0, 255, 0))
+        screen.blit(text1, (800, 100))
+
+
+chip_red = Chip((0, 0), 'fishka.png')
+chip_red_1 = Chip((30, 0), 'fishka.png')
 
 while running:
     for event in pygame.event.get():
@@ -82,27 +109,17 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if 500 > event.pos[0] > 320 and 500 > event.pos[1] > 320:
-                screen.fill(pygame.Color("black"))
-                num = (random.randint(1,6),random.randint(1,6))
-                if sum(num) + cordinate_chip > 40:
-                    cordinate_chip = cordinate_chip - 40
-                chip.rect.x = main_dict[cordinate_chip + sum(num)][1]
-                chip.rect.y = main_dict[cordinate_chip + sum(num)][0]
-                cordinate_chip += sum(num)
-                f1 = pygame.font.Font(None, 50)
-                if sum(num) <= 4:
-                    text1 = f1.render(f'Выпало {sum(num)} хода', True, (0, 255, 0))
-                else:
-                    text1 = f1.render(f'Выпало {sum(num)} ходов', True, (0, 255, 0))
-                screen.blit(text1, (800, 100))
+                if changer == 0:
+                    chip_red.step()
+                    changer += 1
+                elif changer == 1:
+                    chip_red_1.step()
+                    changer = 0
                 
-        
     all_sprites.draw(screen)
     pygame.draw.rect(screen, 'white', (50, 50, 700, 700), 1)
     pygame.draw.rect(screen, 'white', (150, 150, 500, 500), 1)
-
     pygame.draw.rect(screen, 'white', (650, 650, 100, 100), 1)
-
     pygame.draw.rect(screen, 'white', (594, 650, 56, 100), 1)
     pygame.draw.rect(screen, 'white', (539, 650, 56, 100), 1)
     pygame.draw.rect(screen, 'white', (482, 650, 56, 100), 1)
@@ -112,9 +129,7 @@ while running:
     pygame.draw.rect(screen, 'white', (258, 650, 56, 100), 1)
     pygame.draw.rect(screen, 'white', (202, 650, 56, 100), 1)
     pygame.draw.rect(screen, 'white', (150, 650, 52, 100), 1)
-
     pygame.draw.rect(screen, 'white', (50, 650, 100, 100), 1)
-
     pygame.draw.rect(screen, 'white', (50, 594, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (50, 539, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (50, 482, 100, 56), 1)
@@ -124,9 +139,7 @@ while running:
     pygame.draw.rect(screen, 'white', (50, 258, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (50, 202, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (50, 150, 100, 52), 1)
-
     pygame.draw.rect(screen, 'white', (50, 50, 100, 100), 1)
-
     pygame.draw.rect(screen, 'white', (150, 50, 56, 100), 1)
     pygame.draw.rect(screen, 'white', (206, 50, 56, 100), 1)
     pygame.draw.rect(screen, 'white', (262, 50, 56, 100), 1)
@@ -136,9 +149,7 @@ while running:
     pygame.draw.rect(screen, 'white', (486, 50, 56, 100), 1)
     pygame.draw.rect(screen, 'white', (542, 50, 56, 100), 1)
     pygame.draw.rect(screen, 'white', (596, 50, 54, 100), 1)
-
     pygame.draw.rect(screen, 'white', (650, 50, 100, 100), 1)
-
     pygame.draw.rect(screen, 'white', (650, 150, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 206, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 262, 100, 56), 1)
@@ -148,7 +159,6 @@ while running:
     pygame.draw.rect(screen, 'white', (650, 486, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 542, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 596, 100, 54), 1)
-
     pygame.draw.rect(screen, 'white', (320, 320, 180, 180), 1)
     pygame.display.flip()
 pygame.quit()
