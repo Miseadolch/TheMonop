@@ -69,8 +69,8 @@ monop.rect = monop.image.get_rect()
 chip.rect = chip.image.get_rect()
 monop.rect.x = 50
 monop.rect.y = 50
-chip.rect.x = main_dict[1][0] + main_dict[1][2]
-chip.rect.y = main_dict[1][1] + main_dict[1][3]
+chip.rect.x = main_dict[1][0]
+chip.rect.y = main_dict[1][1]
 pygame.draw.rect(screen, 'white', (0, 0, 50, 50))
 screen.fill(pygame.Color("black"))
 running = True
