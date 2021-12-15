@@ -1,6 +1,49 @@
 import os
 import pygame
-
+import random
+pygame.init()
+main_dict = {1:(650, 650, 100, 100),
+40:(594, 650, 56, 100),
+39:(539, 650, 56, 100),
+38:(482, 650, 56, 100),
+37:(426, 650, 56, 100),
+36:(370, 650, 56, 100),
+35:(314, 650, 56, 100),
+34:(258, 650, 56, 100),
+33:(202, 650, 56, 100),
+32:(150, 650, 52, 100),
+31:(50, 650, 100, 100),
+30:(50, 594, 100, 56),
+29:(50, 539, 100, 56),
+28:(50, 482, 100, 56),
+27:(50, 426, 100, 56),
+26:(50, 370, 100, 56),
+25:(50, 314, 100, 56),
+24:(50, 258, 100, 56),
+23:(50, 202, 100, 56),
+22:(50, 150, 100, 52),
+21:(50, 50, 100, 100),
+20:(150, 50, 56, 100),
+19:(206, 50, 56, 100),
+18:(262, 50, 56, 100),
+17:(318, 50, 56, 100),
+16:(374, 50, 56, 100),
+15:(430, 50, 56, 100),
+14:(486, 50, 56, 100),
+13:(542, 50, 56, 100),
+12:(596, 50, 54, 100),
+11:(650, 50, 100, 100),
+10:(650, 150, 100, 56),
+9:(650, 206, 100, 56),
+8:(650, 262, 100, 56),
+7:(650, 318, 100, 56),
+6:(650, 374, 100, 56),
+5:(650, 430, 100, 56),
+4:(650, 486, 100, 56),
+3:(650, 542, 100, 56),
+2:(650, 596, 100, 54),
+'main':(320, 320, 180, 180)
+}
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
@@ -17,18 +60,37 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
 image = load_image("monop.png")
+chiper = load_image('fishka.png')
 monop = pygame.sprite.Sprite(all_sprites)
+chip = pygame.sprite.Sprite(all_sprites)
 monop.image = image
+chip.image = chiper
 monop.rect = monop.image.get_rect()
+chip.rect = chip.image.get_rect()
 monop.rect.x = 50
 monop.rect.y = 50
+chip.rect.x = main_dict[1][1] + main_dict[1][3] // 2
+chip.rect.y = main_dict[1][0] + main_dict[1][2] // 2
 pygame.draw.rect(screen, 'white', (0, 0, 50, 50))
 running = True
+cordinate_chip = 1
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 500 > event.pos[0] > 320 and 500 > event.pos[1] > 320:
+                num = (random.randint(1,6),random.randint(1,6))
+                if sum(num) + cordinate_chip > 40:
+                    cordinate_chip = cordinate_chip - 40
+                chip.rect.x = main_dict[cordinate_chip + sum(num)][1] + main_dict[1][3] // 2
+                chip.rect.y = main_dict[cordinate_chip + sum(num)][0] + main_dict[1][2] // 2
+                cordinate_chip += sum(num)
+                
+        
     screen.fill(pygame.Color("black"))
+    all_sprites.draw(screen)
     pygame.draw.rect(screen, 'white', (50, 50, 700, 700), 1)
     pygame.draw.rect(screen, 'white', (150, 150, 500, 500), 1)
 
@@ -85,45 +147,3 @@ while running:
     pygame.display.flip()
 pygame.quit()
 
-"""1 - (650, 650, 100, 100)
-2 - (594, 650, 56, 100)
-3 - (539, 650, 56, 100)
-4 - (482, 650, 56, 100)
-5 - (426, 650, 56, 100)
-6 - (370, 650, 56, 100)
-7 - (314, 650, 56, 100)
-8 - (258, 650, 56, 100)
-9 - (202, 650, 56, 100)
-10 - (150, 650, 52, 100)
-11 - (50, 650, 100, 100)
-12 - (50, 594, 100, 56)
-13 - (50, 539, 100, 56)
-14 - (50, 482, 100, 56)
-15 - (50, 426, 100, 56)
-16 - (50, 370, 100, 56)
-17 - (50, 314, 100, 56)
-18 - (50, 258, 100, 56)
-19 - (50, 202, 100, 56)
-20 - (50, 150, 100, 52)
-21 - (50, 50, 100, 100)
-22 - (150, 50, 56, 100)
-23 - (206, 50, 56, 100)
-24 - (262, 50, 56, 100)
-25 - (318, 50, 56, 100)
-26 - (374, 50, 56, 100)
-27 - (430, 50, 56, 100)
-28 - (486, 50, 56, 100)
-29 - (542, 50, 56, 100)
-30 - (596, 50, 54, 100)
-31 - (650, 50, 100, 100)
-32 - (650, 150, 100, 56)
-33 - (650, 206, 100, 56)
-34 - (650, 262, 100, 56)
-35 - (650, 318, 100, 56)
-36 - (650, 374, 100, 56)
-37 - (650, 430, 100, 56)
-38 - (650, 486, 100, 56)
-39 - (650, 542, 100, 56)
-40 - (650, 596, 100, 54)
-поле для бросания кубиков - (320, 320, 180, 180)
-"""
