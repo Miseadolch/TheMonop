@@ -69,8 +69,8 @@ monop.rect = monop.image.get_rect()
 chip.rect = chip.image.get_rect()
 monop.rect.x = 50
 monop.rect.y = 50
-chip.rect.x = main_dict[1][1] + main_dict[1][3] // 2
-chip.rect.y = main_dict[1][0] + main_dict[1][2] // 2
+chip.rect.x = main_dict[1][0] + main_dict[1][2]
+chip.rect.y = main_dict[1][1] + main_dict[1][3]
 pygame.draw.rect(screen, 'white', (0, 0, 50, 50))
 screen.fill(pygame.Color("black"))
 running = True
@@ -86,8 +86,8 @@ while running:
                 num = (random.randint(1,6),random.randint(1,6))
                 if sum(num) + cordinate_chip > 40:
                     cordinate_chip = cordinate_chip - 40
-                chip.rect.x = main_dict[cordinate_chip + sum(num)][1] + main_dict[1][3] // 2
-                chip.rect.y = main_dict[cordinate_chip + sum(num)][0] + main_dict[1][2] // 2
+                chip.rect.x = main_dict[cordinate_chip + sum(num)][1]
+                chip.rect.y = main_dict[cordinate_chip + sum(num)][0]
                 cordinate_chip += sum(num)
                 f1 = pygame.font.Font(None, 50)
                 if sum(num) <= 4:
