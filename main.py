@@ -72,6 +72,7 @@ monop.rect.y = 50
 chip.rect.x = main_dict[1][1] + main_dict[1][3] // 2
 chip.rect.y = main_dict[1][0] + main_dict[1][2] // 2
 pygame.draw.rect(screen, 'white', (0, 0, 50, 50))
+screen.fill(pygame.Color("black"))
 running = True
 cordinate_chip = 1
 
@@ -81,15 +82,21 @@ while running:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if 500 > event.pos[0] > 320 and 500 > event.pos[1] > 320:
+                screen.fill(pygame.Color("black"))
                 num = (random.randint(1,6),random.randint(1,6))
                 if sum(num) + cordinate_chip > 40:
                     cordinate_chip = cordinate_chip - 40
                 chip.rect.x = main_dict[cordinate_chip + sum(num)][1] + main_dict[1][3] // 2
                 chip.rect.y = main_dict[cordinate_chip + sum(num)][0] + main_dict[1][2] // 2
                 cordinate_chip += sum(num)
+                f1 = pygame.font.Font(None, 50)
+                if sum(num) <= 4:
+                    text1 = f1.render(f'Выпало {sum(num)} хода', True, (0, 255, 0))
+                else:
+                    text1 = f1.render(f'Выпало {sum(num)} ходов', True, (0, 255, 0))
+                screen.blit(text1, (800, 100))
                 
         
-    screen.fill(pygame.Color("black"))
     all_sprites.draw(screen)
     pygame.draw.rect(screen, 'white', (50, 50, 700, 700), 1)
     pygame.draw.rect(screen, 'white', (150, 150, 500, 500), 1)
@@ -143,7 +150,6 @@ while running:
     pygame.draw.rect(screen, 'white', (650, 596, 100, 54), 1)
 
     pygame.draw.rect(screen, 'white', (320, 320, 180, 180), 1)
-    # all_sprites.draw(screen)
     pygame.display.flip()
 pygame.quit()
 
