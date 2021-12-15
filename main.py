@@ -73,9 +73,10 @@ running = True
 changer = 1
 
 class Chip(Sprite):
-    def __init__(self, ident, name_image):
+    def __init__(self, ident, name_image, number_person):
         self.cordinate_chip = 1
         self.ident = ident
+        self.number = number_person
         chiper = load_image(name_image)
         self.chip = pygame.sprite.Sprite(all_sprites)
         self.chip.image = chiper
@@ -93,15 +94,18 @@ class Chip(Sprite):
         self.chip.rect.y = main_dict[self.cordinate_chip + sum(num)][0] + self.ident[1]
         self.cordinate_chip += sum(num)
         f1 = pygame.font.Font(None, 50)
+        f2 = pygame.font.Font(None, 50)
+        text2 = f2.render(f'Игроку {self.number} Выпало:', True, (255, 0, 0))
         if sum(num) <= 4:
-            text1 = f1.render(f'Выпало {sum(num)} хода', True, (0, 255, 0))
+            text1 = f1.render(f'{sum(num)} хода', True, (0, 255, 0))
         else:
-            text1 = f1.render(f'Выпало {sum(num)} ходов', True, (0, 255, 0))
-        screen.blit(text1, (800, 100))
+            text1 = f1.render(f'{sum(num)} ходов', True, (0, 255, 0))
+        screen.blit(text2, (800, 100))
+        screen.blit(text1, (800, 150))
 
 
-chip_red = Chip((0, 0), 'fishka.png')
-chip_red_1 = Chip((30, 0), 'fishka.png')
+chip_red = Chip((0, 0), 'fishka.png', 1)
+chip_red_1 = Chip((30, 0), 'fishka.png', 2)
 
 while running:
     for event in pygame.event.get():
