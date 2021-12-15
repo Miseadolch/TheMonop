@@ -70,7 +70,7 @@ monop.rect.y = 50
 pygame.draw.rect(screen, 'white', (0, 0, 50, 50))
 screen.fill(pygame.Color("black"))
 running = True
-changer = 1
+changer = 0
 
 class Chip(Sprite):
     def __init__(self, ident, name_image, number_person):
