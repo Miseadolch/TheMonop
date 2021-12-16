@@ -1,6 +1,10 @@
 import os
 import pygame
 import random
+from time import sleep
+from pygame import color
+from pygame import draw
+from pygame.draw import circle
 
 from pygame.sprite import Sprite
 pygame.init()
@@ -72,27 +76,34 @@ screen.fill(pygame.Color("black"))
 running = True
 changer = 0
 
-class Chip(Sprite):
-    def __init__(self, ident, name_image, number_person):
+class Chip:
+    def __init__(self, ident, color, number_person):
         self.cordinate_chip = 1
         self.ident = ident
+        self.color = color
         self.number = number_person
-        chiper = load_image(name_image)
-        self.chip = pygame.sprite.Sprite(all_sprites)
-        self.chip.image = chiper
-        self.chip.rect = self.chip.image.get_rect()
-        self.chip.rect.x = main_dict[1][1] + self.ident[0]
-        self.chip.rect.y = main_dict[1][0] + self.ident[1]
-        
+        self.x = main_dict[1][0] + self.ident[0]
+        self.y = main_dict[1][0] + self.ident[1]
+
+    
+    def draw(self):
+        pygame.draw.circle(screen, pygame.Color(self.color), (self.x, self.y), 10, 0)
     
     def step(self):
         screen.fill(pygame.Color("black"))
         num = (random.randint(1,6),random.randint(1,6))
         if sum(num) + self.cordinate_chip > 40:
             self.cordinate_chip = self.cordinate_chip - 40
-        self.chip.rect.x = main_dict[self.cordinate_chip + sum(num)][1] + self.ident[0]
-        self.chip.rect.y = main_dict[self.cordinate_chip + sum(num)][0] + self.ident[1]
         self.cordinate_chip += sum(num)
+        helper = self.cordinate_chip - sum(num)
+        for i in range(sum(num)):
+            helper += 1
+            all_sprites.draw(screen)
+            self.x = main_dict[helper][1] + self.ident[0]
+            self.y = main_dict[helper][0] + self.ident[1]
+            all_draw_pict()
+            sleep(0.3)
+            pygame.display.flip()
         f1 = pygame.font.Font(None, 50)
         f2 = pygame.font.Font(None, 50)
         text2 = f2.render(f'Игроку {self.number} Выпало:', True, (255, 0, 0))
@@ -143,18 +154,23 @@ class Chip(Sprite):
         text_no = no.render("Нет", True, (0, 0, 255))
         screen.blit(text_no, (900, 300))
 
+
+
 chips = []
 n = 4
 for i in range(n):
     if i == 0:
-        chips.append(Chip((0, 0), 'fishka.png', i + 1))
+        chips.append(Chip((10, 10), 'red', i + 1))
     elif i == 1:
-        chips.append(Chip((30, 0), 'fishka.png', i + 1))
+        chips.append(Chip((40, 10), 'blue', i + 1))
     elif i == 2:
-        chips.append(Chip((0, 30), 'fishka.png', i + 1))
+        chips.append(Chip((10, 40), 'yellow', i + 1))
     else:
-        chips.append(Chip((30, 30), 'fishka.png', i + 1))
+        chips.append(Chip((40, 40), 'green', i + 1))
 
+def all_draw_pict():
+    for i in chips:
+        i.draw()
 
 while running:
     for event in pygame.event.get():
@@ -180,7 +196,6 @@ while running:
                     changer = 0
                     if changer >= n:
                         changer = 0
-                
     all_sprites.draw(screen)
     pygame.draw.rect(screen, 'white', (50, 50, 700, 700), 1)
     pygame.draw.rect(screen, 'white', (150, 150, 500, 500), 1)
@@ -225,6 +240,7 @@ while running:
     pygame.draw.rect(screen, 'white', (650, 542, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 596, 100, 54), 1)
     pygame.draw.rect(screen, 'white', (320, 320, 180, 180), 1)
+    all_draw_pict()
     pygame.display.flip()
 pygame.quit()
 
