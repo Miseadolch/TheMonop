@@ -106,6 +106,8 @@ class Chip(Sprite):
             self.community_chest()
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
+        else:
+            self.card()
 
     def community_chest(self):
         chest = open("data/chest.txt")
@@ -126,6 +128,20 @@ class Chip(Sprite):
         f4 = pygame.font.Font(None, 50)
         text4 = f4.render(random.choice(chest_list), True, (0, 255, 0))
         screen.blit(text4, (800, 250))
+
+    def card(self):
+        f3 = pygame.font.Font(None, 50)
+        text3 = f3.render(main_dict[self.cordinate_chip][4], True, (255, 0, 0))
+        screen.blit(text3, (800, 200))
+        f4 = pygame.font.Font(None, 50)
+        text4 = f4.render("Купить?", True, (0, 255, 0))
+        screen.blit(text4, (800, 250))
+        yes = pygame.font.Font(None, 50)
+        text_yes = yes.render("Да", True, (0, 0, 255))
+        screen.blit(text_yes, (800, 300))
+        no = pygame.font.Font(None, 50)
+        text_no = no.render("Нет", True, (0, 0, 255))
+        screen.blit(text_no, (900, 300))
 
 
 chip_red = Chip((0, 0), 'fishka.png', 1)
