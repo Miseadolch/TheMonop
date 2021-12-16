@@ -149,19 +149,17 @@ class Chip:
         text_no = no.render("Нет", True, (0, 0, 255))
         screen.blit(text_no, (900, 300))
 
-
-
 chips = []
 n = 4
 for i in range(n):
     if i == 0:
-        chips.append(Chip((10, 10), 'red', i + 1))
+        chips.append(Chip((10, 20), 'red', i + 1))
     elif i == 1:
-        chips.append(Chip((40, 10), 'blue', i + 1))
+        chips.append(Chip((40, 20), 'blue', i + 1))
     elif i == 2:
-        chips.append(Chip((10, 40), 'yellow', i + 1))
+        chips.append(Chip((10, 50), 'yellow', i + 1))
     else:
-        chips.append(Chip((40, 40), 'green', i + 1))
+        chips.append(Chip((40, 50), 'green', i + 1))
 
 def all_draw_pict():
     for i in chips:
