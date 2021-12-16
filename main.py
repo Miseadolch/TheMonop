@@ -143,9 +143,18 @@ class Chip(Sprite):
         text_no = no.render("Нет", True, (0, 0, 255))
         screen.blit(text_no, (900, 300))
 
+chips = []
+n = 4
+for i in range(n):
+    if i == 0:
+        chips.append(Chip((0, 0), 'fishka.png', i + 1))
+    elif i == 1:
+        chips.append(Chip((30, 0), 'fishka.png', i + 1))
+    elif i == 2:
+        chips.append(Chip((0, 30), 'fishka.png', i + 1))
+    else:
+        chips.append(Chip((30, 30), 'fishka.png', i + 1))
 
-chip_red = Chip((0, 0), 'fishka.png', 1)
-chip_red_1 = Chip((30, 0), 'fishka.png', 2)
 
 while running:
     for event in pygame.event.get():
@@ -154,11 +163,23 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if 500 > event.pos[0] > 320 and 500 > event.pos[1] > 320:
                 if changer == 0:
-                    chip_red.step()
+                    chips[0].step()
                     changer += 1
                 elif changer == 1:
-                    chip_red_1.step()
+                    chips[1].step()
+                    changer += 1
+                    if changer >= n:
+                        changer = 0
+                elif changer == 2:
+                    chips[2].step()
+                    changer += 1
+                    if changer >= n:
+                        changer = 0
+                elif changer == 3:
+                    chips[3].step()
                     changer = 0
+                    if changer >= n:
+                        changer = 0
                 
     all_sprites.draw(screen)
     pygame.draw.rect(screen, 'white', (50, 50, 700, 700), 1)
