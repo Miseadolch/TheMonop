@@ -69,7 +69,6 @@ monop.image = image
 monop.rect = monop.image.get_rect()
 monop.rect.x = 50
 monop.rect.y = 50
-pygame.draw.rect(screen, 'white', (0, 0, 50, 50))
 screen.fill(pygame.Color("black"))
 running = True
 changer = 0
@@ -81,6 +80,7 @@ class Chip:
         self.ident = ident
         self.color = color
         self.number = number_person
+        self.count = 0
         self.x = main_dict[1][0] + self.ident[0]
         self.y = main_dict[1][0] + self.ident[1]
 
@@ -89,6 +89,8 @@ class Chip:
 
     def step(self, num):
         screen.fill(pygame.Color("black"))
+        if num[0] == num[1]:
+            self.count += 1
         for i in range(1, 7):
             if i == num[0]:
                 image_kubik = load_image("kubik{}.png".format(i))
@@ -104,11 +106,11 @@ class Chip:
                 kubik.rect = kubik.image.get_rect()
                 kubik.rect.x = 400
                 kubik.rect.y = 400
-        if num[0] != num[1]:
-            if sum(num) + self.cordinate_chip > 40:
-                self.cordinate_chip = self.cordinate_chip - 40
-            self.cordinate_chip += sum(num)
-            helper = self.cordinate_chip - sum(num)
+        if sum(num) + self.cordinate_chip > 40:
+            self.cordinate_chip = self.cordinate_chip - 40
+        self.cordinate_chip += sum(num)
+        helper = self.cordinate_chip - sum(num)
+        if self.count != 3:
             for i in range(sum(num)):
                 helper += 1
                 all_sprites.draw(screen)
@@ -123,6 +125,12 @@ class Chip:
             monop.rect = monop.image.get_rect()
             monop.rect.x = 50
             monop.rect.y = 50
+        else:
+            if self.color == 'red':
+                self.x = 100
+                self.y = 670
+            self.count = 0
+            all_draw_pict()
         if main_dict[self.cordinate_chip][4] == "COMMUNITY CHEST":
             self.community_chest()
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
@@ -184,23 +192,25 @@ while running:
                     if num[0] != num[1]:
                         changer += 1
                 elif changer == 1:
+                    chips[1].step(num)
                     if num[0] != num[1]:
-                        chips[1].step(num)
                         changer += 1
                         if changer >= n:
                             changer = 0
                 elif changer == 2:
+                    chips[2].step(num)
                     if num[0] != num[1]:
-                        chips[2].step(num)
                         changer += 1
                         if changer >= n:
                             changer = 0
+                        count = 0
                 elif changer == 3:
+                    chips[3].step(num)
                     if num[0] != num[1]:
-                        chips[3].step(num)
                         changer = 0
                         if changer >= n:
                             changer = 0
+
     pygame.draw.rect(screen, 'white', (840, 640, 270, 60))
     pygame.draw.rect(screen, 'darkgrey', (840, 640, 270, 60), 3)
     all_sprites.draw(screen)
@@ -250,6 +260,7 @@ while running:
     pygame.draw.rect(screen, 'white', (650, 486, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 542, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 596, 100, 54), 1)
+    pygame.draw.rect(screen, 'white', (85, 650, 65, 65), 1)
     all_draw_pict()
     pygame.display.flip()
 pygame.quit()
