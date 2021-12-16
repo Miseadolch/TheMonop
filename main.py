@@ -104,12 +104,24 @@ class Chip(Sprite):
         screen.blit(text1, (800, 150))
         if main_dict[self.cordinate_chip][4] == "COMMUNITY CHEST":
             self.community_chest()
+        elif main_dict[self.cordinate_chip][4] == "CHANCE":
+            self.chance()
 
     def community_chest(self):
         chest = open("data/chest.txt")
         chest_list = chest.read().split("\n")
         f3 = pygame.font.Font(None, 50)
         text3 = f3.render("Общественная казна:", True, (255, 0, 0))
+        screen.blit(text3, (800, 200))
+        f4 = pygame.font.Font(None, 50)
+        text4 = f4.render(random.choice(chest_list), True, (0, 255, 0))
+        screen.blit(text4, (800, 250))
+
+    def chance(self):
+        chest = open("data/chest.txt")
+        chest_list = chest.read().split("\n")
+        f3 = pygame.font.Font(None, 50)
+        text3 = f3.render("Шанс:", True, (255, 0, 0))
         screen.blit(text3, (800, 200))
         f4 = pygame.font.Font(None, 50)
         text4 = f4.render(random.choice(chest_list), True, (0, 255, 0))
