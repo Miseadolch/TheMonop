@@ -1,12 +1,7 @@
 import os
 import pygame
 import random
-from time import sleep
-from pygame import color
-from pygame import draw
-from pygame.draw import circle
 
-from pygame.sprite import Sprite
 pygame.init()
 main_dict = {1:(650, 650, 100, 100, "GO"),
 40:(594, 650, 56, 100, "BOARDWALK"),
@@ -102,7 +97,7 @@ class Chip:
             self.x = main_dict[helper][1] + self.ident[0]
             self.y = main_dict[helper][0] + self.ident[1]
             all_draw_pict()
-            sleep(0.3)
+            clock.tick(5)
             pygame.display.flip()
         f1 = pygame.font.Font(None, 50)
         f2 = pygame.font.Font(None, 50)
