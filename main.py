@@ -72,9 +72,10 @@ running = True
 changer = 0
 
 class Chip:
-    def __init__(self, ident, color, number_person):
+    def __init__(self, ident, color, number_person, prison):
         self.cordinate_chip = 1
         self.ident = ident
+        self.prison = prison
         self.color = color
         self.number = number_person
         self.x = main_dict[1][0] + self.ident[0]
@@ -89,15 +90,22 @@ class Chip:
         num = (random.randint(1,6),random.randint(1,6))
         if sum(num) + self.cordinate_chip > 40:
             self.cordinate_chip = self.cordinate_chip - 40
+        helper = self.cordinate_chip
         self.cordinate_chip += sum(num)
-        helper = self.cordinate_chip - sum(num)
+        print(self.cordinate_chip)
         for i in range(sum(num)):
-            helper += 1
             all_sprites.draw(screen)
-            self.x = main_dict[helper][1] + self.ident[0]
-            self.y = main_dict[helper][0] + self.ident[1]
+            helper += 1
+            if helper > 40:
+                helper = 1
+            elif helper == 11:
+                self.x = main_dict[11][1] + 10
+                self.y = main_dict[11][0] + self.prison
+            else:
+                self.x = main_dict[helper][1] + self.ident[0]
+                self.y = main_dict[helper][0] + self.ident[1]
             all_draw_pict()
-            clock.tick(5)
+            clock.tick(3)
             pygame.display.flip()
         f1 = pygame.font.Font(None, 50)
         f2 = pygame.font.Font(None, 50)
@@ -153,13 +161,13 @@ chips = []
 n = 4
 for i in range(n):
     if i == 0:
-        chips.append(Chip((10, 20), 'red', i + 1))
+        chips.append(Chip((10, 20), 'red', i + 1, 15))
     elif i == 1:
-        chips.append(Chip((40, 20), 'blue', i + 1))
+        chips.append(Chip((40, 20), 'blue', i + 1, 20))
     elif i == 2:
-        chips.append(Chip((10, 50), 'yellow', i + 1))
+        chips.append(Chip((10, 50), 'yellow', i + 1, 25))
     else:
-        chips.append(Chip((40, 50), 'green', i + 1))
+        chips.append(Chip((40, 50), 'green', i + 1, 35))
 
 def all_draw_pict():
     for i in chips:
@@ -174,6 +182,8 @@ while running:
                 if changer == 0:
                     chips[0].step()
                     changer += 1
+                    if changer >= n:
+                        changer = 0
                 elif changer == 1:
                     chips[1].step()
                     changer += 1
