@@ -73,6 +73,13 @@ screen.fill(pygame.Color("black"))
 running = True
 changer = 0
 
+chest_dict = dict()
+for i, x in enumerate(open('data/chest.txt', encoding='utf-8')):
+    chest_dict[i] = x
+num_chest = list(range(5))
+random.shuffle(num_chest)
+n = 0
+
 
 class Chip:
     def __init__(self, ident, color, number_person):
@@ -139,14 +146,24 @@ class Chip:
             self.card()
 
     def community_chest(self):
-        chest = open("data/chest.txt")
+        a = 0
+        while a != 1:
+            print(1)
+            pygame.draw.rect(screen, (85, 123, 255), (290, 190, 620, 420), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
+            pygame.draw.rect(screen, (0, 0, 0), (550, 530, 100, 40), 1)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if 650 >= event.pos[0] >= 550 and 570 >= event.pos[1] >= 530:
+                    a = 1
+
+        '''chest = open("data/chest.txt")
         chest_list = chest.read().split("\n")
         f3 = pygame.font.Font(None, 50)
         text3 = f3.render("Общественная казна:", True, (255, 0, 0))
         screen.blit(text3, (800, 200))
         f4 = pygame.font.Font(None, 50)
         text4 = f4.render(random.choice(chest_list), True, (0, 255, 0))
-        screen.blit(text4, (800, 250))
+        screen.blit(text4, (800, 250))'''
 
     def chance(self):
         chest = open("data/chest.txt")
