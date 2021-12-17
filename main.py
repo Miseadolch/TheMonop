@@ -163,11 +163,11 @@ for i in range(n):
     if i == 0:
         chips.append(Chip((10, 20), 'red', i + 1, 15))
     elif i == 1:
-        chips.append(Chip((40, 20), 'blue', i + 1, 20))
+        chips.append(Chip((40, 20), 'blue', i + 1, 40))
     elif i == 2:
-        chips.append(Chip((10, 50), 'yellow', i + 1, 25))
+        chips.append(Chip((10, 50), 'yellow', i + 1, 65))
     else:
-        chips.append(Chip((40, 50), 'green', i + 1, 35))
+        chips.append(Chip((40, 50), 'green', i + 1, 90))
 
 def all_draw_pict():
     for i in chips:
