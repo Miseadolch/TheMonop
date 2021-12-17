@@ -72,9 +72,10 @@ running = True
 changer = 0
 
 class Chip:
-    def __init__(self, ident, color, number_person):
+    def __init__(self, ident, color, number_person, prison):
         self.cordinate_chip = 1
         self.ident = ident
+        self.prison = prison
         self.color = color
         self.number = number_person
         self.x = main_dict[1][0] + self.ident[0]
@@ -97,10 +98,14 @@ class Chip:
             helper += 1
             if helper > 40:
                 helper = 1
-            self.x = main_dict[helper][1] + self.ident[0]
-            self.y = main_dict[helper][0] + self.ident[1]
+            elif helper == 11:
+                self.x = main_dict[11][1] + 10
+                self.y = main_dict[11][0] + self.prison
+            else:
+                self.x = main_dict[helper][1] + self.ident[0]
+                self.y = main_dict[helper][0] + self.ident[1]
             all_draw_pict()
-            clock.tick(5)
+            clock.tick(3)
             pygame.display.flip()
         f1 = pygame.font.Font(None, 50)
         f2 = pygame.font.Font(None, 50)
@@ -153,16 +158,16 @@ class Chip:
         screen.blit(text_no, (900, 300))
 
 chips = []
-n = 1
+n = 4
 for i in range(n):
     if i == 0:
-        chips.append(Chip((10, 20), 'red', i + 1))
+        chips.append(Chip((10, 20), 'red', i + 1, 15))
     elif i == 1:
-        chips.append(Chip((40, 20), 'blue', i + 1))
+        chips.append(Chip((40, 20), 'blue', i + 1, 20))
     elif i == 2:
-        chips.append(Chip((10, 50), 'yellow', i + 1))
+        chips.append(Chip((10, 50), 'yellow', i + 1, 25))
     else:
-        chips.append(Chip((40, 50), 'green', i + 1))
+        chips.append(Chip((40, 50), 'green', i + 1, 35))
 
 def all_draw_pict():
     for i in chips:
