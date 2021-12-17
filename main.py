@@ -89,11 +89,14 @@ class Chip:
         num = (random.randint(1,6),random.randint(1,6))
         if sum(num) + self.cordinate_chip > 40:
             self.cordinate_chip = self.cordinate_chip - 40
+        helper = self.cordinate_chip
         self.cordinate_chip += sum(num)
-        helper = self.cordinate_chip - sum(num)
+        print(self.cordinate_chip)
         for i in range(sum(num)):
-            helper += 1
             all_sprites.draw(screen)
+            helper += 1
+            if helper > 40:
+                helper = 1
             self.x = main_dict[helper][1] + self.ident[0]
             self.y = main_dict[helper][0] + self.ident[1]
             all_draw_pict()
@@ -150,7 +153,7 @@ class Chip:
         screen.blit(text_no, (900, 300))
 
 chips = []
-n = 4
+n = 1
 for i in range(n):
     if i == 0:
         chips.append(Chip((10, 20), 'red', i + 1))
@@ -174,6 +177,8 @@ while running:
                 if changer == 0:
                     chips[0].step()
                     changer += 1
+                    if changer >= n:
+                        changer = 0
                 elif changer == 1:
                     chips[1].step()
                     changer += 1
