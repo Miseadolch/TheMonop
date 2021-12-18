@@ -148,13 +148,14 @@ class Chip:
     def community_chest(self):
         a = 0
         while a != 1:
-            print(1)
             pygame.draw.rect(screen, (85, 123, 255), (290, 190, 620, 420), 0)
             pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
             pygame.draw.rect(screen, (0, 0, 0), (550, 530, 100, 40), 1)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if 650 >= event.pos[0] >= 550 and 570 >= event.pos[1] >= 530:
+                    print(0)
                     a = 1
+            pygame.display.flip()
 
         '''chest = open("data/chest.txt")
         chest_list = chest.read().split("\n")
