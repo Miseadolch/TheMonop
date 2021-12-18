@@ -48,6 +48,13 @@ main_dict = {1: (650, 650, 100, 100, "GO"),
              'main': (320, 320, 180, 180)
              }
 
+chest_dict = dict()
+for i, x in enumerate(open('data/chest.txt', encoding='utf-8')):
+    chest_dict[i] = x[:-1]
+num_chest = list(range(len(chest_dict)))
+random.shuffle(num_chest)
+n = 0
+
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
@@ -69,26 +76,32 @@ monop.image = image
 monop.rect = monop.image.get_rect()
 monop.rect.x = 50
 monop.rect.y = 50
-pygame.draw.rect(screen, 'white', (0, 0, 50, 50))
 screen.fill(pygame.Color("black"))
 running = True
 changer = 0
 
 
 class Chip:
-    def __init__(self, ident, color, number_person):
+    def __init__(self, ident, color, number_person, prison):
         self.cordinate_chip = 1
         self.ident = ident
+        self.prison = prison
         self.color = color
         self.number = number_person
         self.x = main_dict[1][0] + self.ident[0]
         self.y = main_dict[1][0] + self.ident[1]
+        self.count = 0
 
     def draw(self):
         pygame.draw.circle(screen, pygame.Color(self.color), (self.x, self.y), 10, 0)
 
     def step(self, num):
+        global changer
         screen.fill(pygame.Color("black"))
+        if num[0] == num[1]:
+            self.count += 1
+        else:
+            self.count = 0
         for i in range(1, 7):
             if i == num[0]:
                 image_kubik = load_image("kubik{}.png".format(i))
@@ -104,16 +117,22 @@ class Chip:
                 kubik.rect = kubik.image.get_rect()
                 kubik.rect.x = 400
                 kubik.rect.y = 400
-        if num[0] != num[1]:
-            if sum(num) + self.cordinate_chip > 40:
-                self.cordinate_chip = self.cordinate_chip - 40
-            self.cordinate_chip += sum(num)
-            helper = self.cordinate_chip - sum(num)
+        if sum(num) + self.cordinate_chip > 40:
+            self.cordinate_chip = self.cordinate_chip - 40
+        self.cordinate_chip += sum(num)
+        helper = self.cordinate_chip - sum(num)
+        if self.count != 3:
             for i in range(sum(num)):
                 helper += 1
                 all_sprites.draw(screen)
-                self.x = main_dict[helper][1] + self.ident[0]
-                self.y = main_dict[helper][0] + self.ident[1]
+                if helper > 40:
+                    helper = 1
+                elif helper == 11:
+                    self.x = main_dict[11][1] + 10
+                    self.y = main_dict[11][0] + self.prison
+                else:
+                    self.x = main_dict[helper][1] + self.ident[0]
+                    self.y = main_dict[helper][0] + self.ident[1]
                 all_draw_pict()
                 clock.tick(2)
                 pygame.display.flip()
@@ -123,6 +142,21 @@ class Chip:
             monop.rect = monop.image.get_rect()
             monop.rect.x = 50
             monop.rect.y = 50
+        else:
+            if self.color == 'red':
+                self.x = 95
+                self.y = 670
+            if self.color == 'blue':
+                self.x = 125
+                self.y = 670
+            if self.color == 'yellow':
+                self.x = 95
+                self.y = 700
+            if self.color == 'green':
+                self.x = 125
+                self.y = 700
+            self.count = 0
+            all_draw_pict()
         if main_dict[self.cordinate_chip][4] == "COMMUNITY CHEST":
             self.community_chest()
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
@@ -131,24 +165,68 @@ class Chip:
             self.card()
 
     def community_chest(self):
-        chest = open("data/chest.txt")
-        chest_list = chest.read().split("\n")
-        f3 = pygame.font.Font(None, 50)
-        text3 = f3.render("Общественная казна:", True, (255, 0, 0))
-        screen.blit(text3, (800, 200))
-        f4 = pygame.font.Font(None, 50)
-        text4 = f4.render(random.choice(chest_list), True, (0, 255, 0))
-        screen.blit(text4, (800, 250))
+        a = 0
+        pygame.draw.rect(screen, (65, 155, 255), (290, 190, 620, 420), 0)
+        pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
+        font_ok = pygame.font.Font(None, 50)
+        text_ok = font_ok.render("OK", True, (0, 0, 0))
+        text_ok_x = width // 2 - text_ok.get_width() // 2
+        text_ok_y = 520
+        text_ok_w = text_ok.get_width()
+        text_ok_h = text_ok.get_height()
+        screen.blit(text_ok, (text_ok_x, text_ok_y))
+        pygame.draw.rect(screen, (0, 0, 0), (text_ok_x - 20, text_ok_y - 10, text_ok_w + 40, text_ok_h + 20), 1)
+        fort_cc = pygame.font.Font(None, 60)
+        text_cc = fort_cc.render("Общественная казна:", True, (0, 0, 0))
+        text_cc_x = width // 2 - text_cc.get_width() // 2
+        text_cc_y = 230
+        screen.blit(text_cc, (text_cc_x, text_cc_y))
+        fort_chest = pygame.font.Font(None, 40)
+        text_chest = fort_chest.render(chest_dict[n], True, (0, 0, 0))
+        text_chest_x = width // 2 - text_chest.get_width() // 2
+        text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
+                                                           // 2 - text_chest.get_height() // 2)
+        screen.blit(text_chest, (text_chest_x, text_chest_y))
+        while a != 1:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
+                            text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
+                        screen.fill((0, 0, 0))
+                        a = 1
+            pygame.display.flip()
 
     def chance(self):
-        chest = open("data/chest.txt")
-        chest_list = chest.read().split("\n")
-        f3 = pygame.font.Font(None, 50)
-        text3 = f3.render("Шанс:", True, (255, 0, 0))
-        screen.blit(text3, (800, 200))
-        f4 = pygame.font.Font(None, 50)
-        text4 = f4.render(random.choice(chest_list), True, (0, 255, 0))
-        screen.blit(text4, (800, 250))
+        a = 0
+        pygame.draw.rect(screen, (255, 155, 65), (290, 190, 620, 420), 0)
+        pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
+        font_ok = pygame.font.Font(None, 50)
+        text_ok = font_ok.render("OK", True, (0, 0, 0))
+        text_ok_x = width // 2 - text_ok.get_width() // 2
+        text_ok_y = 520
+        text_ok_w = text_ok.get_width()
+        text_ok_h = text_ok.get_height()
+        screen.blit(text_ok, (text_ok_x, text_ok_y))
+        pygame.draw.rect(screen, (0, 0, 0), (text_ok_x - 20, text_ok_y - 10, text_ok_w + 40, text_ok_h + 20), 1)
+        fort_cc = pygame.font.Font(None, 60)
+        text_cc = fort_cc.render("Шанс:", True, (0, 0, 0))
+        text_cc_x = width // 2 - text_cc.get_width() // 2
+        text_cc_y = 230
+        screen.blit(text_cc, (text_cc_x, text_cc_y))
+        fort_chest = pygame.font.Font(None, 40)
+        text_chest = fort_chest.render(chest_dict[n], True, (0, 0, 0))
+        text_chest_x = width // 2 - text_chest.get_width() // 2
+        text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
+                                                           // 2 - text_chest.get_height() // 2)
+        screen.blit(text_chest, (text_chest_x, text_chest_y))
+        while a != 1:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
+                            text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
+                        screen.fill((0, 0, 0))
+                        a = 1
+            pygame.display.flip()
 
     def card(self):
         pass
@@ -158,13 +236,13 @@ chips = []
 n = 2
 for i in range(n):
     if i == 0:
-        chips.append(Chip((10, 20), 'red', i + 1))
+        chips.append(Chip((10, 20), 'red', i + 1, 15))
     elif i == 1:
-        chips.append(Chip((40, 20), 'blue', i + 1))
+        chips.append(Chip((40, 20), 'blue', i + 1, 40))
     elif i == 2:
-        chips.append(Chip((10, 50), 'yellow', i + 1))
+        chips.append(Chip((10, 50), 'yellow', i + 1, 65))
     else:
-        chips.append(Chip((40, 50), 'green', i + 1))
+        chips.append(Chip((40, 50), 'green', i + 1, 90))
 
 
 def all_draw_pict():
@@ -172,6 +250,7 @@ def all_draw_pict():
         i.draw()
 
 
+count = 0
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -179,28 +258,57 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if 1110 >= event.pos[0] >= 840 and 700 >= event.pos[1] >= 640:
                 num = (random.randint(1, 6), random.randint(1, 6))
+                if num[0] == num[1]:
+                    count += 1
+                else:
+                    count = 0
                 if changer == 0:
                     chips[0].step(num)
                     if num[0] != num[1]:
                         changer += 1
+                        count = 0
+                    elif count == 3:
+                        changer += 1
+                        if changer >= n:
+                            changer = 0
+                        count = 0
                 elif changer == 1:
+                    chips[1].step(num)
                     if num[0] != num[1]:
-                        chips[1].step(num)
                         changer += 1
                         if changer >= n:
                             changer = 0
+                        count = 0
+                    elif count == 3:
+                        changer += 1
+                        if changer >= n:
+                            changer = 0
+                        count = 0
                 elif changer == 2:
+                    chips[2].step(num)
                     if num[0] != num[1]:
-                        chips[2].step(num)
                         changer += 1
                         if changer >= n:
                             changer = 0
+                        count = 0
+                    elif count == 3:
+                        changer += 1
+                        if changer >= n:
+                            changer = 0
+                        count = 0
                 elif changer == 3:
+                    chips[3].step(num)
                     if num[0] != num[1]:
-                        chips[3].step(num)
                         changer = 0
                         if changer >= n:
                             changer = 0
+                        count = 0
+                    elif count == 3:
+                        changer += 1
+                        if changer >= n:
+                            changer = 0
+                        count = 0
+
     pygame.draw.rect(screen, 'white', (840, 640, 270, 60))
     pygame.draw.rect(screen, 'darkgrey', (840, 640, 270, 60), 3)
     all_sprites.draw(screen)
@@ -250,6 +358,7 @@ while running:
     pygame.draw.rect(screen, 'white', (650, 486, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 542, 100, 56), 1)
     pygame.draw.rect(screen, 'white', (650, 596, 100, 54), 1)
+    pygame.draw.rect(screen, 'white', (85, 650, 65, 65), 1)
     all_draw_pict()
     pygame.display.flip()
 pygame.quit()
