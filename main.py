@@ -143,11 +143,11 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.community_chest()
+            self.card()
 
     def community_chest(self):
         a = 0
-        pygame.draw.rect(screen, (85, 175, 255), (290, 190, 620, 420), 0)
+        pygame.draw.rect(screen, (65, 155, 255), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
         text_ok = font_ok.render("OK", True, (0, 0, 0))
@@ -178,14 +178,36 @@ class Chip:
             pygame.display.flip()
 
     def chance(self):
-        chest = open("data/chest.txt")
-        chest_list = chest.read().split("\n")
-        f3 = pygame.font.Font(None, 50)
-        text3 = f3.render("Шанс:", True, (255, 0, 0))
-        screen.blit(text3, (800, 200))
-        f4 = pygame.font.Font(None, 50)
-        text4 = f4.render(random.choice(chest_list), True, (0, 255, 0))
-        screen.blit(text4, (800, 250))
+        a = 0
+        pygame.draw.rect(screen, (255, 155, 65), (290, 190, 620, 420), 0)
+        pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
+        font_ok = pygame.font.Font(None, 50)
+        text_ok = font_ok.render("OK", True, (0, 0, 0))
+        text_ok_x = width // 2 - text_ok.get_width() // 2
+        text_ok_y = 520
+        text_ok_w = text_ok.get_width()
+        text_ok_h = text_ok.get_height()
+        screen.blit(text_ok, (text_ok_x, text_ok_y))
+        pygame.draw.rect(screen, (0, 0, 0), (text_ok_x - 20, text_ok_y - 10, text_ok_w + 40, text_ok_h + 20), 1)
+        fort_cc = pygame.font.Font(None, 60)
+        text_cc = fort_cc.render("Шанс:", True, (0, 0, 0))
+        text_cc_x = width // 2 - text_cc.get_width() // 2
+        text_cc_y = 230
+        screen.blit(text_cc, (text_cc_x, text_cc_y))
+        fort_chest = pygame.font.Font(None, 40)
+        text_chest = fort_chest.render(chest_dict[n], True, (0, 0, 0))
+        text_chest_x = width // 2 - text_chest.get_width() // 2
+        text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
+                                                           // 2 - text_chest.get_height() // 2)
+        screen.blit(text_chest, (text_chest_x, text_chest_y))
+        while a != 1:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
+                            text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
+                        screen.fill((0, 0, 0))
+                        a = 1
+            pygame.display.flip()
 
     def card(self):
         pass
