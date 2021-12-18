@@ -76,7 +76,7 @@ changer = 0
 chest_dict = dict()
 for i, x in enumerate(open('data/chest.txt', encoding='utf-8')):
     chest_dict[i] = x
-num_chest = list(range(5))
+num_chest = list(range(len(chest_dict)))
 random.shuffle(num_chest)
 n = 0
 
@@ -150,29 +150,21 @@ class Chip:
         while a != 1:
             pygame.draw.rect(screen, (85, 123, 255), (290, 190, 620, 420), 0)
             pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
-            font = pygame.font.Font(None, 50)
-            text = font.render("OK", True, (0, 0, 0))
-            text_x = width // 2 - text.get_width() // 2
-            text_y = 530
-            text_w = text.get_width()
-            text_h = text.get_height()
-            screen.blit(text, (text_x, text_y))
-            pygame.draw.rect(screen, (0, 0, 0), (text_x - 20, text_y - 10, text_w + 40, text_h + 20), 1)
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if text_x - 20 + text_w + 40 >= event.pos[0] >= text_x - 20 and \
-                        text_y - 10 + text_h + 20 >= event.pos[1] >= text_y - 10:
-                    print(0)
-                    a = 1
+            font_ok = pygame.font.Font(None, 50)
+            text_ok = font_ok.render("OK", True, (0, 0, 0))
+            text_ok_x = width // 2 - text_ok.get_width() // 2
+            text_ok_y = 530
+            text_ok_w = text_ok.get_width()
+            text_ok_h = text_ok.get_height()
+            screen.blit(text_ok, (text_ok_x, text_ok_y))
+            pygame.draw.rect(screen, (0, 0, 0), (text_ok_x - 20, text_ok_y - 10, text_ok_w + 40, text_ok_h + 20), 1)
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
+                            text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
+                        screen.fill((0, 0, 0))
+                        a = 1
             pygame.display.flip()
-
-        '''chest = open("data/chest.txt")
-        chest_list = chest.read().split("\n")
-        f3 = pygame.font.Font(None, 50)
-        text3 = f3.render("Общественная казна:", True, (255, 0, 0))
-        screen.blit(text3, (800, 200))
-        f4 = pygame.font.Font(None, 50)
-        text4 = f4.render(random.choice(chest_list), True, (0, 255, 0))
-        screen.blit(text4, (800, 250))'''
 
     def chance(self):
         chest = open("data/chest.txt")
