@@ -72,11 +72,12 @@ running = True
 changer = 0
 
 class Chip:
-    def __init__(self, ident, color, number_person, prison):
+    def __init__(self, ident, color, number_person, prison, helper=1):
         self.cordinate_chip = 1
         self.ident = ident
         self.prison = prison
         self.color = color
+        self.helper = helper
         self.number = number_person
         self.x = main_dict[1][0] + self.ident[0]
         self.y = main_dict[1][0] + self.ident[1]
@@ -90,11 +91,10 @@ class Chip:
         num = (random.randint(1,6),random.randint(1,6))
         if sum(num) + self.cordinate_chip > 40:
             self.cordinate_chip = self.cordinate_chip - 40
-        helper = self.cordinate_chip
+        helper = self.cordinate_chip + sum(num)
         self.cordinate_chip += sum(num)
         print(self.cordinate_chip)
         for i in range(sum(num)):
-            all_sprites.draw(screen)
             helper += 1
             if helper > 40:
                 helper = 1
@@ -102,10 +102,11 @@ class Chip:
                 self.x = main_dict[11][1] + 10
                 self.y = main_dict[11][0] + self.prison
             else:
+                print(helper)
                 self.x = main_dict[helper][1] + self.ident[0]
                 self.y = main_dict[helper][0] + self.ident[1]
             all_draw_pict()
-            clock.tick(3)
+            clock.tick(5555555)
             pygame.display.flip()
         f1 = pygame.font.Font(None, 50)
         f2 = pygame.font.Font(None, 50)
@@ -158,7 +159,7 @@ class Chip:
         screen.blit(text_no, (900, 300))
 
 chips = []
-n = 4
+n = 1
 for i in range(n):
     if i == 0:
         chips.append(Chip((10, 20), 'red', i + 1, 15))
