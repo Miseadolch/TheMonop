@@ -143,16 +143,24 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.card()
+            self.community_chest()
 
     def community_chest(self):
         a = 0
         while a != 1:
             pygame.draw.rect(screen, (85, 123, 255), (290, 190, 620, 420), 0)
             pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
-            pygame.draw.rect(screen, (0, 0, 0), (550, 530, 100, 40), 1)
+            font = pygame.font.Font(None, 50)
+            text = font.render("OK", True, (0, 0, 0))
+            text_x = width // 2 - text.get_width() // 2
+            text_y = 530
+            text_w = text.get_width()
+            text_h = text.get_height()
+            screen.blit(text, (text_x, text_y))
+            pygame.draw.rect(screen, (0, 0, 0), (text_x - 20, text_y - 10, text_w + 40, text_h + 20), 1)
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if 650 >= event.pos[0] >= 550 and 570 >= event.pos[1] >= 530:
+                if text_x - 20 + text_w + 40 >= event.pos[0] >= text_x - 20 and \
+                        text_y - 10 + text_h + 20 >= event.pos[1] >= text_y - 10:
                     print(0)
                     a = 1
             pygame.display.flip()
