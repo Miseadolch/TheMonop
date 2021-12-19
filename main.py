@@ -128,19 +128,29 @@ class Chip:
                     self.cordinate_chip += 1
                     if self.cordinate_chip > 40:
                         self.cordinate_chip = 1
-                    if self.cordinate_chip == 11 and self.go_to_jail is False:
+                    if 21 >= self.cordinate_chip > 11:
+                        self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                        self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
+                        print(main_dict[self.cordinate_chip][-1])
+                    elif 40 > self.cordinate_chip > 31:
+                        self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
+                        self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
+                    elif self.cordinate_chip == 11 and self.go_to_jail is False:
                         self.x = main_dict[11][1] + 10
                         self.y = main_dict[11][0] + self.prison
                     elif self.cordinate_chip == 31 and all_in == 31:
-                        self.x = main_dict[11][1] + self.ident[0] + 30
+                        self.x = main_dict[11][1] + self.ident[0] + 10
                         self.y = main_dict[11][0] + self.ident[1]
                         self.cordinate_chip = 11
                         self.go_to_jail = True
+                    elif 40 >= self.cordinate_chip > 31:
+                        self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                        self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
                     else:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
                         self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
                     all_draw_pict()
-                    clock.tick(10)
+                    clock.tick(3)
                     pygame.display.flip()
             image = load_image("monop.png")
             monop = pygame.sprite.Sprite(all_sprites)
@@ -243,14 +253,14 @@ class Chip:
 
 
 chips = []
-n = 2
+n = 4
 for i in range(n):
     if i == 0:
-        chips.append(Chip((10, 40), 'red', i + 1, 15))
+        chips.append(Chip((20, 40), 'red', i + 1, 15))
     elif i == 1:
-        chips.append(Chip((40, 40), 'blue', i + 1, 40))
+        chips.append(Chip((20, 60), 'blue', i + 1, 40))
     elif i == 2:
-        chips.append(Chip((10, 60), 'yellow', i + 1, 65))
+        chips.append(Chip((40, 40), 'yellow', i + 1, 65))
     else:
         chips.append(Chip((40, 60), 'green', i + 1, 90))
 
