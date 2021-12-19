@@ -166,6 +166,8 @@ class Chip:
 
     def community_chest(self):
         a = 0
+        if n >= len(chest_dict):
+            n = 0
         pygame.draw.rect(screen, (65, 155, 255), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
@@ -194,10 +196,13 @@ class Chip:
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
                         a = 1
+                        n += 1
             pygame.display.flip()
 
     def chance(self):
         a = 0
+        if n >= len(chest_dict):
+            n = 0
         pygame.draw.rect(screen, (255, 155, 65), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
@@ -226,6 +231,7 @@ class Chip:
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
                         a = 1
+                        n += 1
             pygame.display.flip()
 
     def card(self):
