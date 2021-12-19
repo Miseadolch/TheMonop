@@ -88,6 +88,7 @@ class Chip:
         self.prison = prison
         self.color = color
         self.number = number_person
+        self.go_to_jail = False
         self.x = main_dict[1][0] + self.ident[0]
         self.y = main_dict[1][0] + self.ident[1]
         self.count = 0
@@ -117,25 +118,30 @@ class Chip:
                 kubik.rect = kubik.image.get_rect()
                 kubik.rect.x = 400
                 kubik.rect.y = 400
-        if sum(num) + self.cordinate_chip > 40:
-            self.cordinate_chip = self.cordinate_chip - 40
-        self.cordinate_chip += sum(num)
-        helper = self.cordinate_chip - sum(num)
+        all_in = self.cordinate_chip + sum(num)
         if self.count != 3:
-            for i in range(sum(num)):
-                helper += 1
-                all_sprites.draw(screen)
-                if helper > 40:
-                    helper = 1
-                elif helper == 11:
-                    self.x = main_dict[11][1] + 10
-                    self.y = main_dict[11][0] + self.prison
-                else:
-                    self.x = main_dict[helper][1] + self.ident[0]
-                    self.y = main_dict[helper][0] + self.ident[1]
-                all_draw_pict()
-                clock.tick(2)
-                pygame.display.flip()
+            if self.go_to_jail:
+                self.go_to_jail = False
+            else:
+                for i in range(sum(num)):
+                    all_sprites.draw(screen)
+                    self.cordinate_chip += 1
+                    if self.cordinate_chip > 40:
+                        self.cordinate_chip = 1
+                    if self.cordinate_chip == 11 and self.go_to_jail is False:
+                        self.x = main_dict[11][1] + 10
+                        self.y = main_dict[11][0] + self.prison
+                    elif self.cordinate_chip == 31 and all_in == 31:
+                        self.x = main_dict[11][1] + self.ident[0] + 30
+                        self.y = main_dict[11][0] + self.ident[1]
+                        self.cordinate_chip = 11
+                        self.go_to_jail = True
+                    else:
+                        self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                        self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
+                    all_draw_pict()
+                    clock.tick(10)
+                    pygame.display.flip()
             image = load_image("monop.png")
             monop = pygame.sprite.Sprite(all_sprites)
             monop.image = image
@@ -146,15 +152,19 @@ class Chip:
             if self.color == 'red':
                 self.x = 95
                 self.y = 670
+                self.cordinate_chip = 11
             if self.color == 'blue':
                 self.x = 125
                 self.y = 670
+                self.cordinate_chip = 11
             if self.color == 'yellow':
                 self.x = 95
                 self.y = 700
+                self.cordinate_chip = 11
             if self.color == 'green':
                 self.x = 125
                 self.y = 700
+                self.cordinate_chip = 11
             self.count = 0
             all_draw_pict()
         if main_dict[self.cordinate_chip][4] == "COMMUNITY CHEST":
@@ -242,13 +252,13 @@ chips = []
 n = 2
 for i in range(n):
     if i == 0:
-        chips.append(Chip((10, 20), 'red', i + 1, 15))
+        chips.append(Chip((10, 40), 'red', i + 1, 15))
     elif i == 1:
-        chips.append(Chip((40, 20), 'blue', i + 1, 40))
+        chips.append(Chip((40, 40), 'blue', i + 1, 40))
     elif i == 2:
-        chips.append(Chip((10, 50), 'yellow', i + 1, 65))
+        chips.append(Chip((10, 60), 'yellow', i + 1, 65))
     else:
-        chips.append(Chip((40, 50), 'green', i + 1, 90))
+        chips.append(Chip((40, 60), 'green', i + 1, 90))
 
 
 def all_draw_pict():
