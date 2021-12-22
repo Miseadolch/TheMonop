@@ -48,13 +48,6 @@ main_dict = {1: (650, 650, 100, 100, "GO"),
              'main': (320, 320, 180, 180)
              }
 
-chest_dict = dict()
-for i, x in enumerate(open('data/chest.txt', encoding='utf-8')):
-    chest_dict[i] = x[:-1]
-num_chest = list(range(len(chest_dict)))
-random.shuffle(num_chest)
-n = 0
-
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
@@ -79,6 +72,13 @@ monop.rect.y = 50
 screen.fill(pygame.Color("black"))
 running = True
 changer = 0
+
+chest_dict = dict()
+for i, x in enumerate(open('data/chest.txt', encoding='utf-8')):
+    chest_dict[i] = x[:-1]
+num_chest = list(range(len(chest_dict)))
+random.shuffle(num_chest)
+N = 0
 
 
 class Chip:
@@ -162,12 +162,12 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.card()
+            self.community_chest()
 
     def community_chest(self):
         a = 0
-        if n >= len(chest_dict):
-            n = 0
+        if N >= len(chest_dict):
+            N = 0
         pygame.draw.rect(screen, (65, 155, 255), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
@@ -196,13 +196,13 @@ class Chip:
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
                         a = 1
-                        n += 1
+                        N += 1
             pygame.display.flip()
 
     def chance(self):
         a = 0
-        if n >= len(chest_dict):
-            n = 0
+        if N >= len(chest_dict):
+            N = 0
         pygame.draw.rect(screen, (255, 155, 65), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
@@ -231,7 +231,7 @@ class Chip:
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
                         a = 1
-                        n += 1
+                        N += 1
             pygame.display.flip()
 
     def card(self):
