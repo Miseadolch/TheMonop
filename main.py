@@ -323,7 +323,7 @@ class Chip:
                                 else:
                                     chips.pop(self.number - 1)
                                     a = 1
-                                    # БАГ
+                                    # ВЫВОД О ПРОИГРЫШЕ ИГРОКА
                             
                     pygame.display.flip()
             else:
@@ -331,9 +331,9 @@ class Chip:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
-                                if main_dict[self.cordinate_chip][5] != 'BOUGHT' and self.money >= int(main_dict[self.cordinate_chip][5][1:]):
+                                if main_dict[self.cordinate_chip][5][:6] != 'BOUGHT' and self.money >= int(main_dict[self.cordinate_chip][5][1:]):
                                     self.money -= int(main_dict[self.cordinate_chip][5][1:])
-                                    main_dict[self.cordinate_chip][5] = 'BOUGHT'
+                                    main_dict[self.cordinate_chip][5] = 'BOUGHT_' + self.color.upper()
                                     screen.fill((0, 0, 0))
                                     self.print_money()
                                     a = 1
@@ -408,9 +408,9 @@ class Chip:
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
-                            if main_dict[self.cordinate_chip][5] != 'BOUGHT' and self.money >= int(main_dict[self.cordinate_chip][5][1:]):
+                            if main_dict[self.cordinate_chip][5][:6] != 'BOUGHT' and self.money >= int(main_dict[self.cordinate_chip][5][1:]):
                                 self.money -= int(main_dict[self.cordinate_chip][5][1:])
-                                main_dict[self.cordinate_chip][5] = 'BOUGHT'
+                                main_dict[self.cordinate_chip][5] = 'BOUGHT_' + self.color.upper()
                                 screen.fill((0, 0, 0))
                                 self.print_money()
                             else:
