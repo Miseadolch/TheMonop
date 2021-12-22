@@ -133,6 +133,9 @@ class Chip:
                     all_sprites.draw(screen)
                     self.cordinate_chip += 1
                     if self.cordinate_chip > 40:
+                        screen.fill((0, 0, 0))
+                        self.money += 200
+                        self.print_money()
                         self.cordinate_chip = 1
                     if 21 >= self.cordinate_chip > 11:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
@@ -150,7 +153,7 @@ class Chip:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
                         self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
                     all_draw_pict()
-                    clock.tick(2)
+                    clock.tick(3)
                     pygame.display.flip()
             image = load_image("monop.png")
             monop = pygame.sprite.Sprite(all_sprites)
@@ -312,22 +315,32 @@ class Chip:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if 306 <= event.pos[0] <= 494 and 670 <= event.pos[1] <= 728:
-                                screen.fill((0, 0, 0))
-                                self.money -= int(main_dict[self.cordinate_chip][5][5:])
-                                self.print_money()
-                                a = 1
+                                if self.money >= int(main_dict[self.cordinate_chip][5][5:]):
+                                    screen.fill((0, 0, 0))
+                                    self.money -= int(main_dict[self.cordinate_chip][5][5:])
+                                    self.print_money()
+                                    a = 1
+                                else:
+                                    chips.pop(self.number - 1)
+                                    a = 1
+                                    # БАГ
+                            
                     pygame.display.flip()
             else:
                 while a != 1:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
-                                if main_dict[self.cordinate_chip][5][1:] != 'BOUGHT':
+                                if main_dict[self.cordinate_chip][5] != 'BOUGHT' and self.money >= int(main_dict[self.cordinate_chip][5][1:]):
                                     self.money -= int(main_dict[self.cordinate_chip][5][1:])
                                     main_dict[self.cordinate_chip][5] = 'BOUGHT'
                                     screen.fill((0, 0, 0))
                                     self.print_money()
                                     a = 1
+                                else:
+                                    pass
+                                    a = 1
+                                    # Красная табличка на счёт денег
                             elif 416 <= event.pos[0] <= 604 and 670 <= event.pos[1] <= 728:
                                 screen.fill((0, 0, 0))
                                 a = 1
@@ -395,11 +408,14 @@ class Chip:
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
-                            if main_dict[self.cordinate_chip][5] != 'BOUGHT':
+                            if main_dict[self.cordinate_chip][5] != 'BOUGHT' and self.money >= int(main_dict[self.cordinate_chip][5][1:]):
                                 self.money -= int(main_dict[self.cordinate_chip][5][1:])
                                 main_dict[self.cordinate_chip][5] = 'BOUGHT'
                                 screen.fill((0, 0, 0))
                                 self.print_money()
+                            else:
+                                pass
+                                # Красная табличка на счёт денег
                             a = 1
                         elif 416 <= event.pos[0] <= 604 and 670 <= event.pos[1] <= 728:
                             screen.fill((0, 0, 0))
