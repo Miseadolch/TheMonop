@@ -5,46 +5,46 @@ import pygame
 import random
 
 pygame.init()
-main_dict = {1: (650, 650, 100, 100, "GO"),
-             40: (594, 650, 56, 100, "BOARDWALK"),
-             39: (539, 650, 56, 100, "LUXURY TAX"),
-             38: (482, 650, 56, 100, "PARK PLACE"),
-             37: (426, 650, 56, 100, "CHANCE"),
-             36: (370, 650, 56, 100, "SHORT LINE"),
-             35: (314, 650, 56, 100, "PENNSYLVANIA AVENUE"),
-             34: (258, 650, 56, 100, "COMMUNITY CHEST"),
-             33: (202, 650, 56, 100, "NORTH CAROLINA AVENUE"),
-             32: (150, 650, 52, 100, "PACIFIC AVENUE"),
-             31: (50, 650, 100, 100, "GO TO JAIL"),
-             30: (50, 594, 100, 56, "MARVIN GARDENS"),
-             29: (50, 539, 100, 56, "WATER WORKS"),
-             28: (50, 482, 100, 56, "VENTNOR AVENUE"),
-             27: (50, 426, 100, 56, "ATLANTIC AVENUE"),
-             26: (50, 370, 100, 56, "B. & O. RAILROAD"),
-             25: (50, 314, 100, 56, "ILLINOIS AVENUE"),
-             24: (50, 258, 100, 56, "INDIANA AVENUE"),
-             23: (50, 202, 100, 56, "CHANCE"),
-             22: (50, 150, 100, 52, "KENTUCKY AVENUE"),
-             21: (50, 50, 100, 100, "FREE PARKING"),
-             20: (150, 50, 56, 100, "NEW YORK AVENUE"),
-             19: (206, 50, 56, 100, "TENNESSEE AVENUE"),
-             18: (262, 50, 56, 100, "COMMUNITY CHEST"),
-             17: (318, 50, 56, 100, "ST. JAMES PLACE"),
-             16: (374, 50, 56, 100, "PENNSYLVANIA RAILROAD"),
-             15: (430, 50, 56, 100, "VIRGINIA AVENUE"),
-             14: (486, 50, 56, 100, "STATES AVENUE"),
-             13: (542, 50, 56, 100, "ELECTRIC COMPANY"),
-             12: (596, 50, 54, 100, "ST. CHARLES PLACE"),
-             11: (650, 50, 100, 100, "JUST VISITING"),
-             10: (650, 150, 100, 56, "CONNECTICUT AVENUE"),
-             9: (650, 206, 100, 56, "VERMONT AVENUE"),
-             8: (650, 262, 100, 56, "CHANCE"),
-             7: (650, 318, 100, 56, "ORIENTAL AVENUE"),
-             6: (650, 374, 100, 56, "READING RAILROAD"),
-             5: (650, 430, 100, 56, "INCOME TAX"),
-             4: (650, 486, 100, 56, "BALTIC AVENUE"),
-             3: (650, 542, 100, 56, "COMMUNITY CHEST"),
-             2: (650, 596, 100, 54, "MEDITERRANEAN AVENUE"),
+main_dict = {1: (650, 650, 100, 100, "GO", "", (255, 255, 255)),
+             40: (594, 650, 56, 100, "BOARDWALK", "$400", (70, 130, 180)),
+             39: (539, 650, 56, 100, "LUXURY TAX", "$100", (255, 255, 255)),
+             38: (482, 650, 56, 100, "PARK PLACE", "$350", (70, 130, 180)),
+             37: (426, 650, 56, 100, "CHANCE", "", (255, 255, 255)),
+             36: (370, 650, 56, 100, "SHORT LINE", "$200", (255, 255, 255)),
+             35: (314, 650, 56, 100, "PENNSYLVANIA AVENUE", "$320", (0, 128, 0)),
+             34: (258, 650, 56, 100, "COMMUNITY CHEST", "", (255, 255, 255)),
+             33: (202, 650, 56, 100, "NORTH CAROLINA AVENUE", "$300", (0, 128, 0)),
+             32: (150, 650, 52, 100, "PACIFIC AVENUE", "$300", (0, 128, 0)),
+             31: (50, 650, 100, 100, "GO TO JAIL", "", (255, 255, 255)),
+             30: (50, 594, 100, 56, "MARVIN GARDENS", "$280", (255, 255, 0)),
+             29: (50, 539, 100, 56, "WATER WORKS", "$150", (255, 255, 255)),
+             28: (50, 482, 100, 56, "VENTNOR AVENUE", "$260", (255, 255, 0)),
+             27: (50, 426, 100, 56, "ATLANTIC AVENUE", "$260", (255, 255, 0)),
+             26: (50, 370, 100, 56, "B. & O. RAILROAD", "$200", (255, 255, 255)),
+             25: (50, 314, 100, 56, "ILLINOIS AVENUE", "$240", (255, 0, 0)),
+             24: (50, 258, 100, 56, "INDIANA AVENUE", "$220", (255, 0, 0)),
+             23: (50, 202, 100, 56, "CHANCE", "", (255, 255, 255)),
+             22: (50, 150, 100, 52, "KENTUCKY AVENUE", "$220", (255, 0, 0)),
+             21: (50, 50, 100, 100, "FREE PARKING", "", (255, 255, 255)),
+             20: (150, 50, 56, 100, "NEW YORK AVENUE", "$200", (255, 140, 0)),
+             19: (206, 50, 56, 100, "TENNESSEE AVENUE", "$180", (255, 140, 0)),
+             18: (262, 50, 56, 100, "COMMUNITY CHEST", "", (255, 255, 255)),
+             17: (318, 50, 56, 100, "ST. JAMES PLACE", "$180", (255, 140, 0)),
+             16: (374, 50, 56, 100, "PENNSYLVANIA RAILROAD", "$200", (255, 255, 255)),
+             15: (430, 50, 56, 100, "VIRGINIA AVENUE", "$160", (199, 21, 133)),
+             14: (486, 50, 56, 100, "STATES AVENUE", "$140", (199, 21, 133)),
+             13: (542, 50, 56, 100, "ELECTRIC COMPANY", "$150", (255, 255, 255)),
+             12: (596, 50, 54, 100, "ST. CHARLES PLACE", "$140", (199, 21, 133)),
+             11: (650, 50, 100, 100, "JUST VISITING", "", (255, 255, 255)),
+             10: (650, 150, 100, 56, "CONNECTICUT AVENUE", "$120", (175, 238, 238)),
+             9: (650, 206, 100, 56, "VERMONT AVENUE", "$100", (175, 238, 238)),
+             8: (650, 262, 100, 56, "CHANCE", "", (255, 255, 255)),
+             7: (650, 318, 100, 56, "ORIENTAL AVENUE", "$100", (175, 238, 238)),
+             6: (650, 374, 100, 56, "READING RAILROAD", "$200", (255, 255, 255)),
+             5: (650, 430, 100, 56, "INCOME TAX", "PAY $200", (255, 255, 255)),
+             4: (650, 486, 100, 56, "BALTIC AVENUE", "$60", (77, 34, 14)),
+             3: (650, 542, 100, 56, "COMMUNITY CHEST", "", (255, 255, 255)),
+             2: (650, 596, 100, 54, "MEDITERRANEAN AVENUE", "$60", (77, 34, 14)),
              'main': (320, 320, 180, 180)
              }
 
@@ -128,19 +128,23 @@ class Chip:
                     self.cordinate_chip += 1
                     if self.cordinate_chip > 40:
                         self.cordinate_chip = 1
-                    if self.cordinate_chip == 11 and self.go_to_jail is False:
+                    if 21 >= self.cordinate_chip > 11:
+                        self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                        self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
+                    elif 40 > self.cordinate_chip > 31:
+                        self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
+                        self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
+                    elif self.cordinate_chip == 11 and self.go_to_jail is False:
                         self.x = main_dict[11][1] + 10
                         self.y = main_dict[11][0] + self.prison
-                    elif self.cordinate_chip == 31 and all_in == 31:
-                        self.x = main_dict[11][1] + self.ident[0] + 30
-                        self.y = main_dict[11][0] + self.ident[1]
-                        self.cordinate_chip = 11
-                        self.go_to_jail = True
+                    elif 40 >= self.cordinate_chip > 31:
+                        self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                        self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
                     else:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
                         self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
                     all_draw_pict()
-                    clock.tick(10)
+                    clock.tick(2)
                     pygame.display.flip()
             image = load_image("monop.png")
             monop = pygame.sprite.Sprite(all_sprites)
@@ -172,7 +176,7 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.card()
+            self.card(self.cordinate_chip)
 
     def community_chest(self):
         a = 0
@@ -238,19 +242,165 @@ class Chip:
                         a = 1
             pygame.display.flip()
 
-    def card(self):
-        pass
+    def card(self, index):
+        a = 0
+        if main_dict[index][4] == "GO" or main_dict[index][4] == "FREE PARKING" or \
+                main_dict[index][4] == "JUST VISITING":
+            pass
+        elif "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE" or \
+                main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "ELECTRIC COMPANY" or \
+                main_dict[index][4] == "WATER WORKS" or main_dict[index][4] == "LUXURY TAX":
+            if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE":
+                picture = "train"
+            elif main_dict[index][4] == "INCOME TAX":
+                picture = "income"
+            elif main_dict[index][4] == "ELECTRIC COMPANY":
+                picture = "electric"
+            elif main_dict[index][4] == "WATER WORKS":
+                picture = "kran"
+            elif main_dict[index][4] == "LUXURY TAX":
+                picture = "luxury"
+            pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
+            pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
+            font_street_name = pygame.font.Font(None, 40)
+            street_name = font_street_name.render("{}".format(main_dict[index][4]), True, (0, 0, 0))
+            p = (440 - street_name.get_size()[0]) // 2
+            screen.blit(street_name, (180 + p, 100))
+            font_price = pygame.font.Font(None, 50)
+            price = font_price.render("{}".format(main_dict[index][5]), True, (0, 0, 0))
+            p = (440 - price.get_size()[0]) // 2
+            screen.blit(price, (180 + p, 600))
+            if main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "LUXURY TAX":
+                pygame.draw.rect(screen, "black", (306, 670, 188, 58), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (310, 674, 180, 50), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 4), 0)
+                font_oplata = pygame.font.Font(None, 40)
+                oplata = font_oplata.render("ОПЛАТИТЬ", True, "black")
+                p = (180 - oplata.get_size()[0]) // 2
+                screen.blit(oplata, (310 + p, 687))
+            else:
+                pygame.draw.rect(screen, "green", (196, 670, 188, 58), 0)
+                pygame.draw.rect(screen, "red", (416, 670, 188, 58), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (200, 674, 180, 50), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (420, 674, 180, 50), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 4), 0)
+                font_pokupka = pygame.font.Font(None, 40)
+                kupit = font_pokupka.render("КУПИТЬ", True, "green")
+                font_pokupka = pygame.font.Font(None, 30)
+                nekupit = font_pokupka.render("НЕ ПОКУПАТЬ", True, "red")
+                p = (180 - kupit.get_size()[0]) // 2
+                screen.blit(kupit, (200 + p, 685))
+                p = (180 - nekupit.get_size()[0]) // 2
+                screen.blit(nekupit, (420 + p, 690))
+            all_sprites = pygame.sprite.Group()
+            image = load_image("{}.png".format(picture))
+            pict = pygame.sprite.Sprite(all_sprites)
+            pict.image = image
+            pict.rect = pict.image.get_rect()
+            pict.rect.x = 300
+            pict.rect.y = 250
+            all_sprites.draw(screen)
+            if main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "LUXURY TAX":
+                while a != 1:
+                    for event in pygame.event.get():
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            if 306 <= event.pos[0] <= 494 and 670 <= event.pos[1] <= 728:
+                                # тут надо расписать, что происходит при выплате налога (у игрока вычитаются деньги)
+                                screen.fill((0, 0, 0))
+                                a = 1
+                    pygame.display.flip()
+            else:
+                while a != 1:
+                    for event in pygame.event.get():
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
+                                # тут надо расписать, что будет происходить, когда игрок покупает предприятие
+                                screen.fill((0, 0, 0))
+                                a = 1
+                            elif 416 <= event.pos[0] <= 604 and 670 <= event.pos[1] <= 728:
+                                screen.fill((0, 0, 0))
+                                a = 1
+                    pygame.display.flip()
+
+        elif main_dict[index][4] == "GO TO JAIL":
+            pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
+            pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
+            pygame.draw.rect(screen, "black", (306, 670, 188, 58), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (310, 674, 180, 50), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 4), 0)
+            font_price = pygame.font.Font(None, 50)
+            price = font_price.render("{}".format(main_dict[index][5]), True, (0, 0, 0))
+            p = (440 - price.get_size()[0]) // 2
+            screen.blit(price, (180 + p, 600))
+            font_go = pygame.font.Font(None, 50)
+            go = font_go.render("GO", True, "black")
+            p = (180 - go.get_size()[0]) // 2
+            screen.blit(go, (310 + p, 685))
+            all_sprites = pygame.sprite.Group()
+            image = load_image("gotojail.png")
+            pict = pygame.sprite.Sprite(all_sprites)
+            pict.image = image
+            pict.rect = pict.image.get_rect()
+            pict.rect.x = 260
+            pict.rect.y = 220
+            all_sprites.draw(screen)
+            while a != 1:
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if 306 <= event.pos[0] <= 494 and 670 <= event.pos[1] <= 728:
+                            # тут надо отправлять игрока в тюрьму
+                            screen.fill((0, 0, 0))
+                            a = 1
+                pygame.display.flip()
+        else:
+            pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
+            pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
+            pygame.draw.rect(screen, "green", (196, 670, 188, 58), 0)
+            pygame.draw.rect(screen, "red", (416, 670, 188, 58), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (200, 674, 180, 50), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (420, 674, 180, 50), 0)
+            pygame.draw.rect(screen, (0, 0, 0), (180, 160, 440, 4), 0)
+            font_street_name = pygame.font.Font(None, 40)
+            street_name = font_street_name.render("{}".format(main_dict[index][4]), True, (0, 0, 0))
+            p = (440 - street_name.get_size()[0]) // 2
+            screen.blit(street_name, (180 + p, 200))
+            font_price = pygame.font.Font(None, 50)
+            price = font_price.render("{}".format(main_dict[index][5]), True, (0, 0, 0))
+            p = (440 - price.get_size()[0]) // 2
+            screen.blit(price, (180 + p, 600))
+            font_pokupka = pygame.font.Font(None, 40)
+            kupit = font_pokupka.render("КУПИТЬ", True, "green")
+            font_pokupka = pygame.font.Font(None, 30)
+            nekupit = font_pokupka.render("НЕ ПОКУПАТЬ", True, "red")
+            p = (180 - kupit.get_size()[0]) // 2
+            screen.blit(kupit, (200 + p, 685))
+            p = (180 - nekupit.get_size()[0]) // 2
+            screen.blit(nekupit, (420 + p, 690))
+            while a != 1:
+                for event in pygame.event.get():
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
+                            # тут надо расписать, что будет происходить, когда игрок покупает улицу
+                            screen.fill((0, 0, 0))
+                            a = 1
+                        elif 416 <= event.pos[0] <= 604 and 670 <= event.pos[1] <= 728:
+                            screen.fill((0, 0, 0))
+                            a = 1
+                pygame.display.flip()
 
 
 chips = []
 n = 2
 for i in range(n):
     if i == 0:
-        chips.append(Chip((10, 40), 'red', i + 1, 15))
+        chips.append(Chip((20, 40), 'red', i + 1, 15))
     elif i == 1:
-        chips.append(Chip((40, 40), 'blue', i + 1, 40))
+        chips.append(Chip((20, 60), 'blue', i + 1, 40))
     elif i == 2:
-        chips.append(Chip((10, 60), 'yellow', i + 1, 65))
+        chips.append(Chip((40, 40), 'yellow', i + 1, 65))
     else:
         chips.append(Chip((40, 60), 'green', i + 1, 90))
 
