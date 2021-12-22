@@ -87,9 +87,9 @@ class Chip:
         self.prison = prison
         self.color = color
         self.number = number_person
-        self.go_to_jail = False
-        self.x = main_dict[1][0] + self.ident[0]
-        self.y = main_dict[1][0] + self.ident[1]
+        self.go_to_jail = 0
+        self.x = main_dict[self.cordinate_chip][0] + self.ident[0]
+        self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
         self.count = 0
         self.money = 1500
     
@@ -124,17 +124,16 @@ class Chip:
                 kubik.rect = kubik.image.get_rect()
                 kubik.rect.x = 400
                 kubik.rect.y = 400
-        all_in = self.cordinate_chip + sum(num)
         if self.count != 3:
-            if self.go_to_jail:
-                self.go_to_jail = False
+            if self.go_to_jail > 0:
+                pass
             else:
                 for i in range(sum(num)):
                     all_sprites.draw(screen)
                     self.cordinate_chip += 1
                     if self.cordinate_chip > 40:
                         screen.fill((0, 0, 0))
-                        self.money += 200
+                        all_sprites.draw(screen)
                         self.print_money()
                         self.cordinate_chip = 1
                     if 21 >= self.cordinate_chip > 11:
@@ -143,17 +142,14 @@ class Chip:
                     elif 40 > self.cordinate_chip > 31:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
                         self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                    elif self.cordinate_chip == 11 and self.go_to_jail is False:
+                    elif self.cordinate_chip == 11:
                         self.x = main_dict[11][1] + 10
                         self.y = main_dict[11][0] + self.prison
-                    elif 40 >= self.cordinate_chip > 31:
-                        self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                        self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
                     else:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
                         self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
                     all_draw_pict()
-                    clock.tick(3)
+                    clock.tick(5)
                     pygame.display.flip()
             image = load_image("monop.png")
             monop = pygame.sprite.Sprite(all_sprites)
@@ -216,6 +212,7 @@ class Chip:
                     if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
+                        self.print_money()
                         a = 1
             pygame.display.flip()
 
@@ -248,6 +245,7 @@ class Chip:
                     if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
+                        self.print_money()
                         a = 1
             pygame.display.flip()
 
@@ -373,10 +371,14 @@ class Chip:
                 for event in pygame.event.get():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if 306 <= event.pos[0] <= 494 and 670 <= event.pos[1] <= 728:
-                            self.go_to_jail = True
-                            self.x = main_dict[11][1] + 10
-                            self.y = main_dict[11][0] + self.prison
-                            screen.fill((0, 0, 0))
+                            if self.go_to_jail == 0:
+                                self.go_to_jail += 1
+                                self.x = main_dict[11][1] + self.ident[0] + 30
+                                self.y = main_dict[11][0] + self.ident[1]
+                                screen.fill((0, 0, 0))
+                            else:
+                                self.go_to_jail = 0
+                                self.cordinate_chip = 11
                             a = 1
                 pygame.display.flip()
         else:
@@ -419,6 +421,7 @@ class Chip:
                             a = 1
                         elif 416 <= event.pos[0] <= 604 and 670 <= event.pos[1] <= 728:
                             screen.fill((0, 0, 0))
+                            self.print_money()
                             a = 1
                 pygame.display.flip()
 
