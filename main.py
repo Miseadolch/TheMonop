@@ -169,6 +169,7 @@ class Chip:
 
     def community_chest(self):
         a = 0
+        global n1
         if n1 > 15:
             n1 = 0
         pygame.draw.rect(screen, (65, 155, 255), (290, 190, 620, 420), 0)
@@ -187,8 +188,8 @@ class Chip:
         text_cc_y = 230
         screen.blit(text_cc, (text_cc_x, text_cc_y))
         fort_chest = pygame.font.Font(None, 40)
-        result = cur.execute("""SELECT task FROM community_chest WHERE number = numbers1[n1]""").fetchall()
-        text_chest = fort_chest.render(result, True, (0, 0, 0))
+        result = cur.execute("""SELECT task FROM community_chest WHERE number = ?""", (numbers1[n1] + 1,)).fetchall()
+        text_chest = fort_chest.render(result[0][0], True, (0, 0, 0))
         text_chest_x = width // 2 - text_chest.get_width() // 2
         text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
                                                            // 2 - text_chest.get_height() // 2)
@@ -205,6 +206,7 @@ class Chip:
 
     def chance(self):
         a = 0
+        global n2
         if n2 > 15:
             n2 = 0
         pygame.draw.rect(screen, (255, 155, 65), (290, 190, 620, 420), 0)
@@ -223,8 +225,8 @@ class Chip:
         text_ch_y = 230
         screen.blit(text_ch, (text_ch_x, text_ch_y))
         fort_chance = pygame.font.Font(None, 40)
-        result = cur.execute("""SELECT task FROM chance WHERE number = numbers2[n2]""").fetchall()
-        text_chance = fort_chance.render(result, True, (0, 0, 0))
+        result = cur.execute("""SELECT task FROM chance WHERE number = ?""", (numbers2[n2],)).fetchall()
+        text_chance = fort_chance.render(result[0][0], True, (0, 0, 0))
         text_chance_x = width // 2 - text_chance.get_width() // 2
         text_chance_y = text_ch_y + text_ch.get_height() + ((text_ok_y - 10 - (text_ch_y + text_ch.get_height()))
                                                            // 2 - text_chance.get_height() // 2)
