@@ -1,5 +1,6 @@
 import os
 import time
+import sqlite3
 
 import pygame
 import random
@@ -73,12 +74,14 @@ screen.fill(pygame.Color("black"))
 running = True
 changer = 0
 
-chest_dict = dict()
-for i, x in enumerate(open('data/chest.txt', encoding='utf-8')):
-    chest_dict[i] = x[:-1]
-num_chest = list(range(len(chest_dict)))
-random.shuffle(num_chest)
-N = 0
+con = sqlite3.connect("data/cards.sqlite")
+cur = con.cursor()
+numbers1 = list(range(16))
+random.shuffle(numbers1)
+n1 = 0
+numbers2 = list(range(16))
+random.shuffle(numbers2)
+n2 = 0
 
 
 class Chip:
@@ -166,8 +169,8 @@ class Chip:
 
     def community_chest(self):
         a = 0
-        if N >= len(chest_dict):
-            N = 0
+        if n1 > 15:
+            n1 = 0
         pygame.draw.rect(screen, (65, 155, 255), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
@@ -184,7 +187,8 @@ class Chip:
         text_cc_y = 230
         screen.blit(text_cc, (text_cc_x, text_cc_y))
         fort_chest = pygame.font.Font(None, 40)
-        text_chest = fort_chest.render(chest_dict[n], True, (0, 0, 0))
+        result = cur.execute("""SELECT task FROM community_chest WHERE number = numbers1[n1]""").fetchall()
+        text_chest = fort_chest.render(result, True, (0, 0, 0))
         text_chest_x = width // 2 - text_chest.get_width() // 2
         text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
                                                            // 2 - text_chest.get_height() // 2)
@@ -196,13 +200,13 @@ class Chip:
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
                         a = 1
-                        N += 1
+                        n1 += 1
             pygame.display.flip()
 
     def chance(self):
         a = 0
-        if N >= len(chest_dict):
-            N = 0
+        if n2 > 15:
+            n2 = 0
         pygame.draw.rect(screen, (255, 155, 65), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
@@ -213,17 +217,18 @@ class Chip:
         text_ok_h = text_ok.get_height()
         screen.blit(text_ok, (text_ok_x, text_ok_y))
         pygame.draw.rect(screen, (0, 0, 0), (text_ok_x - 20, text_ok_y - 10, text_ok_w + 40, text_ok_h + 20), 1)
-        fort_cc = pygame.font.Font(None, 60)
-        text_cc = fort_cc.render("Шанс:", True, (0, 0, 0))
-        text_cc_x = width // 2 - text_cc.get_width() // 2
-        text_cc_y = 230
-        screen.blit(text_cc, (text_cc_x, text_cc_y))
-        fort_chest = pygame.font.Font(None, 40)
-        text_chest = fort_chest.render(chest_dict[n], True, (0, 0, 0))
-        text_chest_x = width // 2 - text_chest.get_width() // 2
-        text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
-                                                           // 2 - text_chest.get_height() // 2)
-        screen.blit(text_chest, (text_chest_x, text_chest_y))
+        fort_ch = pygame.font.Font(None, 60)
+        text_ch = fort_ch.render("Шанс:", True, (0, 0, 0))
+        text_ch_x = width // 2 - text_ch.get_width() // 2
+        text_ch_y = 230
+        screen.blit(text_ch, (text_ch_x, text_ch_y))
+        fort_chance = pygame.font.Font(None, 40)
+        result = cur.execute("""SELECT task FROM chance WHERE number = numbers2[n2]""").fetchall()
+        text_chance = fort_chance.render(result, True, (0, 0, 0))
+        text_chance_x = width // 2 - text_chance.get_width() // 2
+        text_chance_y = text_ch_y + text_ch.get_height() + ((text_ok_y - 10 - (text_ch_y + text_ch.get_height()))
+                                                           // 2 - text_chance.get_height() // 2)
+        screen.blit(text_chance, (text_chance_x, text_chance_y))
         while a != 1:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -231,7 +236,7 @@ class Chip:
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
                         a = 1
-                        N += 1
+                        n2 += 1
             pygame.display.flip()
 
     def card(self):
@@ -367,4 +372,5 @@ while running:
     pygame.draw.rect(screen, 'white', (85, 650, 65, 65), 1)
     all_draw_pict()
     pygame.display.flip()
+con.close()
 pygame.quit()
