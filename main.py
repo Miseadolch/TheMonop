@@ -60,6 +60,17 @@ def load_image(name, colorkey=None):
     return image
 
 
+def abc(a):
+    list_str = list()
+    b = a
+    for _ in range(a.count("%%%")):
+        c = b.find("%%%")
+        list_str.append(b[:c])
+        b = b[c + 3:]
+    list_str.append(b)
+    return list_str
+
+
 size = width, height = 1200, 800
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
@@ -81,6 +92,7 @@ random.shuffle(numbers1)
 n1 = 0
 numbers2 = list(range(16))
 random.shuffle(numbers2)
+print(numbers1)
 n2 = 0
 
 
@@ -165,7 +177,7 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.community_chest()
+            self.card()
 
     def community_chest(self):
         a = 0
@@ -189,11 +201,14 @@ class Chip:
         screen.blit(text_cc, (text_cc_x, text_cc_y))
         fort_chest = pygame.font.Font(None, 40)
         result = cur.execute("""SELECT task FROM community_chest WHERE number = ?""", (numbers1[n1] + 1,)).fetchall()
-        text_chest = fort_chest.render(result[0][0], True, (0, 0, 0))
-        text_chest_x = width // 2 - text_chest.get_width() // 2
-        text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
-                                                           // 2 - text_chest.get_height() // 2)
-        screen.blit(text_chest, (text_chest_x, text_chest_y))
+        text = abc(result[0][0])
+        for i in range(len(text)):
+            text_chest = fort_chest.render(text[i], True, (0, 0, 0))
+            text_chest_x = width // 2 - text_chest.get_width() // 2
+            text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
+                                                               // 2 - text_chest.get_height() // 2)\
+                           + i * text_chest.get_height()
+            screen.blit(text_chest, (text_chest_x, text_chest_y))
         while a != 1:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -225,12 +240,15 @@ class Chip:
         text_ch_y = 230
         screen.blit(text_ch, (text_ch_x, text_ch_y))
         fort_chance = pygame.font.Font(None, 40)
-        result = cur.execute("""SELECT task FROM chance WHERE number = ?""", (numbers2[n2],)).fetchall()
-        text_chance = fort_chance.render(result[0][0], True, (0, 0, 0))
-        text_chance_x = width // 2 - text_chance.get_width() // 2
-        text_chance_y = text_ch_y + text_ch.get_height() + ((text_ok_y - 10 - (text_ch_y + text_ch.get_height()))
-                                                           // 2 - text_chance.get_height() // 2)
-        screen.blit(text_chance, (text_chance_x, text_chance_y))
+        result = cur.execute("""SELECT task FROM chance WHERE number = ?""", (numbers2[n2] + 1,)).fetchall()
+        text = abc(result[0][0])
+        for i in range(len(text)):
+            text_chance = fort_chance.render(text[i], True, (0, 0, 0))
+            text_chance_x = width // 2 - text_chance.get_width() // 2
+            text_chance_y = text_ch_y + text_ch.get_height() + ((text_ok_y - 10 - (text_ch_y + text_ch.get_height()))
+                                                                // 2 - text_chance.get_height() * len(text) // 2)\
+                            + i * text_chance.get_height()
+            screen.blit(text_chance, (text_chance_x, text_chance_y))
         while a != 1:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
