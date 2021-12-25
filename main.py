@@ -92,6 +92,7 @@ changer = 0
 
 class Chip:
     def __init__(self, ident, color, number_person, prison):
+        self.homes = []
         self.cordinate_chip = 1
         self.ident = ident
         self.prison = prison
@@ -111,6 +112,8 @@ class Chip:
 
     def draw(self):
         pygame.draw.circle(screen, pygame.Color(self.color), (self.x, self.y), 10, 0)
+        for i in self.homes:
+            pygame.draw.rect(screen, pygame.Color('green'), i, 0)
 
     def step(self, num):
         global changer
@@ -150,7 +153,7 @@ class Chip:
                     if 21 >= self.cordinate_chip > 11:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
                         self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                    elif 40 > self.cordinate_chip > 31:
+                    elif 40 >= self.cordinate_chip > 31:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
                         self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
                     elif self.cordinate_chip == 11:
@@ -515,7 +518,14 @@ class Chip:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if 850 <= event.pos[0] <= 1100 and 150 <= event.pos[1] <= 210 and h:
-                                pass
+                                if 20 < self.cordinate_chip < 30:
+                                    self.homes.append(pygame.Rect(main_dict[self.cordinate_chip][1] + 3, main_dict[self.cordinate_chip][0] + 70, 10, 10))
+                                elif 40 >= self.cordinate_chip > 31:
+                                    self.homes.append(pygame.Rect(main_dict[self.cordinate_chip][1] + 5, main_dict[self.cordinate_chip][0], 10, 10))
+                                elif 21 >= self.cordinate_chip > 11:
+                                    self.homes.append(pygame.Rect(main_dict[self.cordinate_chip][1] + 70, main_dict[self.cordinate_chip][0], 10, 10))
+                                else:
+                                    self.homes.append(pygame.Rect(main_dict[self.cordinate_chip][1] + 5, main_dict[self.cordinate_chip][0] + 5, 10, 10))
                                 # на улице появляется зеленый домик, у пользователя списываются деньги
                             elif 850 <= event.pos[0] <= 1100 and 500 <= event.pos[1] <= 560:
                                 pass
@@ -528,7 +538,7 @@ class Chip:
 
 
 chips = []
-n = 2
+n = 1
 for i in range(n):
     if i == 0:
         chips.append(Chip((20, 40), 'red', i + 1, 15))
@@ -561,6 +571,8 @@ while running:
                     chips[0].step(num)
                     if num[0] != num[1]:
                         changer += 1
+                        if changer >= n:
+                            changer = 0
                         count = 0
                     elif count == 3:
                         changer += 1
