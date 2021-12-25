@@ -93,10 +93,10 @@ class Chip:
         self.count = 0
         self.money = 1500
     
-    def print_money(self):
+    def print_money(self, money, color, cor=(900, 50)):
         t = pygame.font.Font(None, 50)
-        text = t.render(f'Деньги: ${self.money}', False, pygame.Color(self.color))
-        screen.blit(text, (900, 50))
+        text = t.render(f'Деньги: ${money}', False, pygame.Color(color))
+        screen.blit(text, cor)
 
     def draw(self):
         pygame.draw.circle(screen, pygame.Color(self.color), (self.x, self.y), 10, 0)
@@ -104,7 +104,7 @@ class Chip:
     def step(self, num):
         global changer
         screen.fill((0, 0, 0))
-        self.print_money()
+        self.print_money(self.money, self.color)
         if num[0] == num[1]:
             self.count += 1
         else:
@@ -134,7 +134,7 @@ class Chip:
                     if self.cordinate_chip > 40:
                         screen.fill((0, 0, 0))
                         all_sprites.draw(screen)
-                        self.print_money()
+                        self.print_money(self.money, self.color)
                         self.cordinate_chip = 1
                     if 21 >= self.cordinate_chip > 11:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
@@ -212,7 +212,7 @@ class Chip:
                     if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
-                        self.print_money()
+                        self.print_money(self.money, self.color)
                         a = 1
             pygame.display.flip()
 
@@ -245,7 +245,7 @@ class Chip:
                     if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
                         screen.fill((0, 0, 0))
-                        self.print_money()
+                        self.print_money(self.money, self.color)
                         a = 1
             pygame.display.flip()
 
@@ -316,7 +316,7 @@ class Chip:
                                 if self.money >= int(main_dict[self.cordinate_chip][5][5:]):
                                     screen.fill((0, 0, 0))
                                     self.money -= int(main_dict[self.cordinate_chip][5][5:])
-                                    self.print_money()
+                                    self.print_money(self.money, self.color)
                                     a = 1
                                 else:
                                     chips.pop(self.number - 1)
@@ -331,9 +331,9 @@ class Chip:
                             if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
                                 if main_dict[self.cordinate_chip][5][:6] != 'BOUGHT' and self.money >= int(main_dict[self.cordinate_chip][5][1:]):
                                     self.money -= int(main_dict[self.cordinate_chip][5][1:])
-                                    main_dict[self.cordinate_chip][5] = 'BOUGHT_' + self.color.upper()
+                                    main_dict[self.cordinate_chip][5] = 'BOUGHT_' + str(self.number)
                                     screen.fill((0, 0, 0))
-                                    self.print_money()
+                                    self.print_money(self.money, self.color)
                                     a = 1
                                 else:
                                     pass
@@ -382,48 +382,61 @@ class Chip:
                             a = 1
                 pygame.display.flip()
         else:
-            pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
-            pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
-            pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
-            pygame.draw.rect(screen, "green", (196, 670, 188, 58), 0)
-            pygame.draw.rect(screen, "red", (416, 670, 188, 58), 0)
-            pygame.draw.rect(screen, (255, 255, 255), (200, 674, 180, 50), 0)
-            pygame.draw.rect(screen, (255, 255, 255), (420, 674, 180, 50), 0)
-            pygame.draw.rect(screen, (0, 0, 0), (180, 160, 440, 4), 0)
-            font_street_name = pygame.font.Font(None, 40)
-            street_name = font_street_name.render("{}".format(main_dict[index][4]), True, (0, 0, 0))
-            p = (440 - street_name.get_size()[0]) // 2
-            screen.blit(street_name, (180 + p, 200))
-            font_price = pygame.font.Font(None, 50)
-            price = font_price.render("{}".format(main_dict[index][5]), True, (0, 0, 0))
-            p = (440 - price.get_size()[0]) // 2
-            screen.blit(price, (180 + p, 600))
-            font_pokupka = pygame.font.Font(None, 40)
-            kupit = font_pokupka.render("КУПИТЬ", True, "green")
-            font_pokupka = pygame.font.Font(None, 30)
-            nekupit = font_pokupka.render("НЕ ПОКУПАТЬ", True, "red")
-            p = (180 - kupit.get_size()[0]) // 2
-            screen.blit(kupit, (200 + p, 685))
-            p = (180 - nekupit.get_size()[0]) // 2
-            screen.blit(nekupit, (420 + p, 690))
-            while a != 1:
-                for event in pygame.event.get():
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
-                            if main_dict[self.cordinate_chip][5][:6] != 'BOUGHT' and self.money >= int(main_dict[self.cordinate_chip][5][1:]):
-                                self.money -= int(main_dict[self.cordinate_chip][5][1:])
-                                main_dict[self.cordinate_chip][5] = 'BOUGHT_' + self.color.upper()
+            if main_dict[self.cordinate_chip][5][:6] != 'BOUGHT':
+                pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
+                pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
+                pygame.draw.rect(screen, "green", (196, 670, 188, 58), 0)
+                pygame.draw.rect(screen, "red", (416, 670, 188, 58), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (200, 674, 180, 50), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (420, 674, 180, 50), 0)
+                pygame.draw.rect(screen, (0, 0, 0), (180, 160, 440, 4), 0)
+                font_street_name = pygame.font.Font(None, 40)
+                street_name = font_street_name.render("{}".format(main_dict[index][4]), True, (0, 0, 0))
+                p = (440 - street_name.get_size()[0]) // 2
+                screen.blit(street_name, (180 + p, 200))
+                font_price = pygame.font.Font(None, 50)
+                price = font_price.render("{}".format(main_dict[index][5]), True, (0, 0, 0))
+                p = (440 - price.get_size()[0]) // 2
+                screen.blit(price, (180 + p, 600))
+                font_pokupka = pygame.font.Font(None, 40)
+                kupit = font_pokupka.render("КУПИТЬ", True, "green")
+                font_pokupka = pygame.font.Font(None, 30)
+                nekupit = font_pokupka.render("НЕ ПОКУПАТЬ", True, "red")
+                p = (180 - kupit.get_size()[0]) // 2
+                screen.blit(kupit, (200 + p, 685))
+                p = (180 - nekupit.get_size()[0]) // 2
+                screen.blit(nekupit, (420 + p, 690))
+                while a != 1:
+                    for event in pygame.event.get():
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
+                                if self.money > int(main_dict[self.cordinate_chip][5][1:]):
+                                    self.money -= int(main_dict[self.cordinate_chip][5][1:])
+                                    main_dict[self.cordinate_chip][5] = 'BOUGHT_' + str(self.number)
+                                    screen.fill((0, 0, 0))
+                                    self.print_money(self.money, self.color)
+                                else:
+                                    pass
+                                    # Красная табличка на счёт денег
+                                a = 1
+                            elif 416 <= event.pos[0] <= 604 and 670 <= event.pos[1] <= 728:
                                 screen.fill((0, 0, 0))
-                                self.print_money()
-                            else:
-                                pass
-                                # Красная табличка на счёт денег
-                            a = 1
-                        elif 416 <= event.pos[0] <= 604 and 670 <= event.pos[1] <= 728:
-                            screen.fill((0, 0, 0))
-                            self.print_money()
-                            a = 1
-                pygame.display.flip()
+                                self.print_money(self.money, self.color)
+                                a = 1
+                    pygame.display.flip()
+            else:
+                t = pygame.font.Font(None, 50)
+                text = t.render(f'Налог: ${main_dict[self.cordinate_chip][7][0]}', False, pygame.Color('yellow'))
+                screen.fill((0, 0, 0))
+                screen.blit(text, (900, 150))
+                self.money -= int(main_dict[self.cordinate_chip][7][0])
+                print(self.money)
+                enemy = chips[int(main_dict[self.cordinate_chip][5][7]) - 1]
+                enemy.money += int(main_dict[self.cordinate_chip][7][0])
+                print(self.money)
+                self.print_money(self.money, self.color)
+                self.print_money(enemy.money, enemy.color, (900, 100))
 
 
 chips = []
