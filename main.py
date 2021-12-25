@@ -75,6 +75,17 @@ def load_image(name, colorkey=None):
     return image
 
 
+def abc(a):
+    list_str = list()
+    b = a
+    for _ in range(a.count("%%%")):
+        c = b.find("%%%")
+        list_str.append(b[:c])
+        b = b[c + 3:]
+    list_str.append(b)
+    return list_str
+
+
 size = width, height = 1200, 800
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
