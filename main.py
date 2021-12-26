@@ -206,7 +206,7 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.community_chest()
+            self.chance()
             #self.card(self.cordinate_chip)
 
     def community_chest(self):
@@ -260,6 +260,18 @@ class Chip:
                             pass
                         elif n == 5:
                             self.cordinate_chip = 31
+                            screen.fill((0, 0, 0))
+                            all_sprites.draw(screen)
+                            self.print_money()
+                            all_draw_pict()
+                            pygame.display.flip()
+                            image = load_image("monop.png")
+                            monop = pygame.sprite.Sprite(all_sprites)
+                            monop.image = image
+                            monop.rect = monop.image.get_rect()
+                            monop.rect.x = 50
+                            monop.rect.y = 50
+                            pygame.display.flip()
                             self.card(self.cordinate_chip)
                         elif n == 6:
                             self.money += 100
@@ -331,6 +343,29 @@ class Chip:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
+                        n = numbers2[n2]
+                        if n == 0:
+                            self.cordinate_chip = 40
+                            self.card(self.cordinate_chip)
+                        elif n == 1:
+                            self.money += 200
+                            self.cordinate_chip = 1
+                            self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                            self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
+                        elif n == 2:
+                            if self.cordinate_chip > 25:
+                                self.money += 200
+                            self.cordinate_chip = 25
+                            self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                            self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
+                        elif n == 3:
+                            if self.cordinate_chip > 12:
+                                self.money += 200
+                            self.cordinate_chip = 12
+                            self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                            self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
+                        elif n == 4:
+                            pass
                         screen.fill((0, 0, 0))
                         a = 1
                         n2 += 1
