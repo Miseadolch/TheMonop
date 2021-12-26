@@ -206,7 +206,8 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.card(self.cordinate_chip)
+            self.community_chest()
+            #self.card(self.cordinate_chip)
 
     def community_chest(self):
         a = 0
@@ -243,7 +244,54 @@ class Chip:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
+                        n = numbers1[n1]
+                        if n == 0:
+                            self.money += 200
+                            self.cordinate_chip = 1
+                            self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+                            self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
+                        elif n == 1:
+                            self.money += 200
+                        elif n == 2:
+                            self.money -= 50
+                        elif n == 3:
+                            self.money += 50
+                        elif n == 4:
+                            pass
+                        elif n == 5:
+                            self.cordinate_chip = 31
+                            self.card(self.cordinate_chip)
+                        elif n == 6:
+                            self.money += 100
+                        elif n == 7:
+                            self.money += 20
+                        elif n == 8:
+                            pass
+                        elif n == 9:
+                            self.money += 100
+                        elif n == 10:
+                            self.money -= 100
+                        elif n == 11:
+                            self.money -= 50
+                        elif n == 12:
+                            self.money += 25
+                        elif n == 13:
+                            pass
+                        elif n == 14:
+                            self.money += 10
+                        elif n == 15:
+                            self.money += 100
                         screen.fill((0, 0, 0))
+                        all_sprites.draw(screen)
+                        self.print_money()
+                        all_draw_pict()
+                        pygame.display.flip()
+                        image = load_image("monop.png")
+                        monop = pygame.sprite.Sprite(all_sprites)
+                        monop.image = image
+                        monop.rect = monop.image.get_rect()
+                        monop.rect.x = 50
+                        monop.rect.y = 50
                         a = 1
                         n1 += 1
             pygame.display.flip()
