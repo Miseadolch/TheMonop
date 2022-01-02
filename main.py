@@ -118,6 +118,33 @@ class Chip:
         self.money = 1500
         self.jail_free = False
         self.house = 0
+    
+    def builder(self):
+        if 21 >= self.cordinate_chip > 11:
+            self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+            self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
+        elif 40 >= self.cordinate_chip > 31:
+            self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
+            self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
+        elif self.cordinate_chip == 11:
+            self.x = main_dict[11][1] + 10
+            self.y = main_dict[11][0] + self.prison
+        else:
+            self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
+            self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
+        screen.fill((0, 0, 0))
+        all_sprites.draw(screen)
+        self.print_money()
+        all_draw_pict()
+        pygame.display.flip()
+        image = load_image("monop.png")
+        monop = pygame.sprite.Sprite(all_sprites)
+        monop.image = image
+        monop.rect = monop.image.get_rect()
+        monop.rect.x = 50
+        monop.rect.y = 50
+        pygame.display.flip()
+        self.card(self.cordinate_chip)
 
     def print_money(self):
         pygame.draw.rect(screen, self.color, (800, 45, 355, 60), 0)
@@ -443,120 +470,24 @@ class Chip:
                         n = numbers2[n2]
                         if n == 0:
                             self.cordinate_chip = 40
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
 
                         elif n == 1:
                             self.money += 200
                             self.cordinate_chip = 1
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
 
                         elif n == 2:
                             if self.cordinate_chip > 25:
                                 self.money += 200
                             self.cordinate_chip = 25
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
 
                         elif n == 3:
                             if self.cordinate_chip > 12:
                                 self.money += 200
                             self.cordinate_chip = 12
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
 
                         elif n == 4 or n == 5:
                             d = 41
@@ -572,31 +503,7 @@ class Chip:
                                     d = c
                                     e = i
                             self.cordinate_chip = e
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
                             # недоделанно
 
                         elif n == 6:
@@ -613,31 +520,7 @@ class Chip:
                                     d = c
                                     e = i
                             self.cordinate_chip = e
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
                             # недоделанно
 
                         elif n == 7:
@@ -648,61 +531,11 @@ class Chip:
 
                         elif n == 9:
                             self.cordinate_chip -= 3
-                            if self.cordinate_chip < 1:
-                                self.cordinate_chip = 40 - self.cordinate_chip
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
 
                         elif n == 10:
                             self.cordinate_chip = 31
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
 
                         elif n == 11:
                             self.money -= self.house * 25
@@ -715,31 +548,7 @@ class Chip:
                             if self.cordinate_chip > 6:
                                 self.money += 200
                             self.cordinate_chip = 6
-                            if 21 >= self.cordinate_chip > 11:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 30
-                            elif 40 >= self.cordinate_chip > 31:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0] + 30
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1] - 20
-                            elif self.cordinate_chip == 11:
-                                self.x = main_dict[11][1] + 10
-                                self.y = main_dict[11][0] + self.prison
-                            else:
-                                self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
-                                self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
-                            screen.fill((0, 0, 0))
-                            all_sprites.draw(screen)
-                            self.print_money()
-                            all_draw_pict()
-                            pygame.display.flip()
-                            image = load_image("monop.png")
-                            monop = pygame.sprite.Sprite(all_sprites)
-                            monop.image = image
-                            monop.rect = monop.image.get_rect()
-                            monop.rect.x = 50
-                            monop.rect.y = 50
-                            pygame.display.flip()
-                            self.card(self.cordinate_chip)
+                            self.builder()
 
                         elif n == 14:
                             for i in chips:
@@ -1223,7 +1032,7 @@ class Chip:
 
 
 chips = []
-n = 2
+n = 4
 for i in range(n):
     if i == 0:
         chips.append(Chip((20, 40), 'red', i + 1, 15))
