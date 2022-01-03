@@ -1118,11 +1118,9 @@ class Chip:
                                 if main_dict[self.cordinate_chip][9] == 1:
                                     main_dict[self.cordinate_chip][8] -= 1
                                     main_dict[self.cordinate_chip][9] = 0
-                                    self.money += main_dict[self.cordinate_chip][7] // 2
                                     del self.homes[self.color][-1]
                                 elif main_dict[self.cordinate_chip][8] != 0:
                                     main_dict[self.cordinate_chip][8] -= 1
-                                    self.money += main_dict[self.cordinate_chip][7] // 2
                                     del self.homes[self.color][-1]
                                 else:
                                     k = main_dict[self.cordinate_chip][5][7:]
@@ -1130,7 +1128,7 @@ class Chip:
                                     p = main_dict[self.cordinate_chip][5][
                                         main_dict[self.cordinate_chip][5].index('_') + 1:]
                                     main_dict[self.cordinate_chip][5] = p
-                                    self.money += main_dict[self.cordinate_chip][7] // 2
+                                self.money += main_dict[self.cordinate_chip][7] // 2
                                 screen.fill((0, 0, 0))
                                 self.print_money()
                                 a = 1
@@ -1141,6 +1139,7 @@ class Chip:
                     all_draw_pict()
                     pygame.display.flip()
             else:
+                time_dict = {10, 11, 12, 13, 14}
                 pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
                 pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
                 pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
@@ -1156,18 +1155,10 @@ class Chip:
                 font_rent = pygame.font.Font(None, 40)
                 rent = font_rent.render("Заплатите ренту:", True, (0, 0, 0))
                 screen.blit(rent, (290, 325))
-                if main_dict[self.cordinate_chip][8] == 0:
-                    k = 10
-                elif main_dict[self.cordinate_chip][8] == 1:
-                    k = 11
-                elif main_dict[self.cordinate_chip][8] == 2:
-                    k = 12
-                elif main_dict[self.cordinate_chip][8] == 3:
-                    k = 13
-                elif main_dict[self.cordinate_chip][8] == 4:
-                    k = 14
-                elif main_dict[self.cordinate_chip][9] == 1:
+                if main_dict[self.cordinate_chip][9] == 1:
                     k = 15
+                else:
+                    k = main_dict[self.cordinate_chip][8] + 10
                 font_rent = pygame.font.Font(None, 50)
                 rent = font_rent.render("${}".format(main_dict[self.cordinate_chip][k]), True, (0, 0, 0))
                 p = (180 - rent.get_size()[0]) // 2
