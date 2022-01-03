@@ -1091,27 +1091,14 @@ class Chip:
                             if 850 <= event.pos[0] <= 1100 and 150 <= event.pos[1] <= 210 and h:
                                 self.money -= main_dict[self.cordinate_chip][7]
                                 self.print_money()
-                                if main_dict[self.cordinate_chip][8] == 0:
+                                time_dict = {0: (10, 10, 20, 20), 1: (10, 40, 20, 20), 2: (40, 10, 20, 20), 3: (40, 40, 20, 20), 4: (20, 20, 30, 30)}
+                                if 0 <= main_dict[self.cordinate_chip][8] <= 4:
+                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + time_dict[main_dict[self.cordinate_chip][8]][0],
+                                        main_dict[self.cordinate_chip][0] + time_dict[main_dict[self.cordinate_chip][8]][1], 
+                                        time_dict[main_dict[self.cordinate_chip][8]][2], time_dict[main_dict[self.cordinate_chip][8]][3]))
                                     main_dict[self.cordinate_chip][8] += 1
-                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 10,
-                                                                   main_dict[self.cordinate_chip][0] + 10, 20, 20))
-                                elif main_dict[self.cordinate_chip][8] == 1:
-                                    main_dict[self.cordinate_chip][8] += 1
-                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 10,
-                                                                   main_dict[self.cordinate_chip][0] + 40, 20, 20))
-                                elif main_dict[self.cordinate_chip][8] == 2:
-                                    main_dict[self.cordinate_chip][8] += 1
-                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 40,
-                                                                   main_dict[self.cordinate_chip][0] + 10, 20, 20))
-                                elif main_dict[self.cordinate_chip][8] == 3:
-                                    main_dict[self.cordinate_chip][8] += 1
-                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 40,
-                                                                   main_dict[self.cordinate_chip][0] + 40, 20, 20))
-                                elif main_dict[self.cordinate_chip][8] == 4:
-                                    main_dict[self.cordinate_chip][8] += 1
-                                    main_dict[self.cordinate_chip][9] = 1
-                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 20,
-                                                                   main_dict[self.cordinate_chip][0] + 20, 30, 30))
+                                    if main_dict[self.cordinate_chip][8] == 4:
+                                        main_dict[self.cordinate_chip][9] = 1
                                 screen.fill((0, 0, 0))
                                 a = 1
                             if 850 <= event.pos[0] <= 1100 and 500 <= event.pos[1] <= 560:
