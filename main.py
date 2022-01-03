@@ -1243,54 +1243,17 @@ while running:
                     count += 1
                 else:
                     count = 0
-                if changer == 0:
-                    chips[0].step(num)
-                    if num[0] != num[1]:
-                        changer += 1
-                        if changer >= len(chips):
-                            changer = 0
-                        count = 0
-                    elif count == 3:
-                        changer += 1
-                        if changer >= len(chips):
-                            changer = 0
-                        count = 0
-                elif changer == 1:
-                    chips[1].step(num)
-                    if num[0] != num[1]:
-                        changer += 1
-                        if changer >= len(chips):
-                            changer = 0
-                        count = 0
-                    elif count == 3:
-                        changer += 1
-                        if changer >= len(chips):
-                            changer = 0
-                        count = 0
-                elif changer == 2:
-                    chips[2].step(num)
-                    if num[0] != num[1]:
-                        changer += 1
-                        if changer >= len(chips):
-                            changer = 0
-                        count = 0
-                    elif count == 3:
-                        changer += 1
-                        if changer >= len(chips):
-                            changer = 0
-                        count = 0
-                elif changer == 3:
-                    chips[3].step(num)
-                    if num[0] != num[1]:
+                chips[changer].step(num)
+                if num[0] != num[1]:
+                    changer += 1
+                    if changer >= len(chips):
                         changer = 0
-                        if changer >= len(chips):
-                            changer = 0
-                        count = 0
-                    elif count == 3:
-                        changer += 1
-                        if changer >= len(chips):
-                            changer = 0
-                        count = 0
+                    count = 0
+                elif count == 3:
+                    changer += 1
+                    if changer >= len(chips):
+                        changer = 0
+                    count = 0
                 for i in sp_rent:
                     if sp_rent[i] != 0:
                         for j in chips:
