@@ -50,7 +50,7 @@ main_dict = {1: [650, 650, 100, 100, "GO", "", (255, 255, 255)],
              2: [650, 596, 100, 54, "MEDITERRANEAN AVENUE", "$60", (77, 34, 14), 50, 0, 0, 2, 10, 30, 90, 160, 250],
              'main': (320, 320, 180, 180)
              }
-
+n1, n2 = 0, 0
 chest_dict = dict()
 for i, x in enumerate(open('data/chest.txt', encoding='utf-8')):
     chest_dict[i] = x[:-1]
@@ -103,8 +103,6 @@ changer = 0
 
 class Chip:
     def __init__(self, ident, color, number_person, prison):
-        self.n1 = 0
-        self.n2 = 0
         self.cordinate_chip = 1
         self.homes = {'red': [], 'blue': [], 'orange': [], 'green': []}
         self.ident = ident
@@ -300,8 +298,9 @@ class Chip:
 
     def community_chest(self):
         a = 0
-        if self.n1 > 15:
-            self.n1 = 0
+        global n1
+        if n1 > 15:
+            n1 = 0
         pygame.draw.rect(screen, (65, 155, 255), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
@@ -319,7 +318,7 @@ class Chip:
         screen.blit(text_cc, (text_cc_x, text_cc_y))
         fort_chest = pygame.font.Font(None, 40)
         result = cur.execute("""SELECT task FROM community_chest WHERE number = ?""",
-                             (numbers1[self.n1] + 1,)).fetchall()
+                             (numbers1[n1] + 1,)).fetchall()
         text = abc(result[0][0])
         for i in range(len(text)):
             text_chest = fort_chest.render(text[i], True, (0, 0, 0))
@@ -333,7 +332,7 @@ class Chip:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
-                        n = numbers1[self.n1]
+                        n = numbers1[n1]
                         if n == 0:
                             self.money += 200
                             self.cordinate_chip = 1
@@ -405,13 +404,14 @@ class Chip:
                             monop.rect.x = 50
                             monop.rect.y = 50
                             a = 1
-                            self.n1 += 1
+                            n1 += 1
             pygame.display.flip()
 
     def chance(self):
         a = 0
-        if self.n2 > 15:
-            self.n2 = 0
+        global n2 
+        if n2 > 15:
+            n2 = 0
         pygame.draw.rect(screen, (255, 155, 65), (290, 190, 620, 420), 0)
         pygame.draw.rect(screen, (255, 255, 255), (310, 210, 580, 380), 0)
         font_ok = pygame.font.Font(None, 50)
@@ -428,7 +428,7 @@ class Chip:
         text_ch_y = 230
         screen.blit(text_ch, (text_ch_x, text_ch_y))
         fort_chance = pygame.font.Font(None, 40)
-        result = cur.execute("""SELECT task FROM chance WHERE number = ?""", (numbers2[self.n2] + 1,)).fetchall()
+        result = cur.execute("""SELECT task FROM chance WHERE number = ?""", (numbers2[n2] + 1,)).fetchall()
         text = abc(result[0][0])
         for i in range(len(text)):
             text_chance = fort_chance.render(text[i], True, (0, 0, 0))
@@ -442,7 +442,7 @@ class Chip:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if text_ok_x - 20 + text_ok_w + 40 >= event.pos[0] >= text_ok_x - 20 and \
                             text_ok_y - 10 + text_ok_h + 20 >= event.pos[1] >= text_ok_y - 10:
-                        n = numbers2[self.n2]
+                        n = numbers2[n2]
                         if n == 0:
                             self.cordinate_chip = 40
                             self.go_to_card()
@@ -551,7 +551,7 @@ class Chip:
                             monop.rect.x = 50
                             monop.rect.y = 50
                             a = 1
-                            self.n2 += 1
+                            n2 += 1
             pygame.display.flip()
 
     def card(self, index):
