@@ -115,6 +115,7 @@ class Chip:
         self.money = 1500
         self.jail_free = False
         self.house = 0
+        self.hotel = 0
 
     def ne_hvataet_deneg(self):
         pygame.draw.rect(screen, 'red', (174, 54, 452, 612), 0)
@@ -379,7 +380,7 @@ class Chip:
 
                         elif n == 13:
                             self.money -= self.house * 40
-                            # недоделанно
+                            self.money -= self.hotel * 115
 
                         elif n == 14:
                             self.money += 10
@@ -516,7 +517,7 @@ class Chip:
 
                         elif n == 11:
                             self.money -= self.house * 25
-                            # недоделанно
+                            self.money -= self.hotel * 100
 
                         elif n == 12:
                             self.money -= 15
@@ -1097,8 +1098,11 @@ class Chip:
                                         main_dict[self.cordinate_chip][0] + time_dict[main_dict[self.cordinate_chip][8]][1], 
                                         time_dict[main_dict[self.cordinate_chip][8]][2], time_dict[main_dict[self.cordinate_chip][8]][3]))
                                     main_dict[self.cordinate_chip][8] += 1
+                                    self.house += 1
                                     if main_dict[self.cordinate_chip][8] == 4:
                                         main_dict[self.cordinate_chip][9] = 1
+                                        self.house -= 5
+                                        self.hotel += 1
                                 screen.fill((0, 0, 0))
                                 a = 1
                             if 850 <= event.pos[0] <= 1100 and 500 <= event.pos[1] <= 560:
