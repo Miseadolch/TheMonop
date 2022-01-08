@@ -5,57 +5,8 @@ import random
 import sqlite3
 
 pygame.init()
-main_dict = {1: [650, 650, 100, 100, "GO", "", (255, 255, 255)],
-             40: [594, 650, 56, 100, "BOARDWALK", "$400", (70, 130, 180), 200, 0, 0, 50, 200, 600, 1400, 1700, 2000],
-             39: [539, 650, 56, 100, "LUXURY TAX", "PAY $100", (255, 255, 255)],
-             38: [482, 650, 56, 100, "PARK PLACE", "$350", (70, 130, 180), 200, 0, 0, 35, 175, 500, 1100, 1300, 1500],
-             37: [426, 650, 56, 100, "CHANCE", "", (255, 255, 255)],
-             36: [370, 650, 56, 100, "SHORT LINE", "$200", (255, 255, 255)],
-             35: [314, 650, 56, 100, "PENNSYLVANIA AVENUE", "$320", (0, 128, 0), 200, 0, 0, 28, 150, 450, 1000, 1200,
-                  1400],
-             34: [258, 650, 56, 100, "COMMUNITY CHEST", "", (255, 255, 255)],
-             33: [202, 650, 56, 100, "NORTH CAROLINA AVENUE", "$300", (0, 128, 0), 200, 0, 0, 26, 130, 390, 900, 1100,
-                  1275],
-             32: [150, 650, 52, 100, "PACIFIC AVENUE", "$300", (0, 128, 0), 200, 0, 0, 26, 130, 390, 900, 1100, 1275],
-             31: [50, 650, 100, 100, "GO TO JAIL", "", (255, 255, 255)],
-             30: [50, 594, 100, 56, "MARVIN GARDENS", "$280", (255, 255, 0), 150, 0, 0, 24, 120, 360, 850, 1025, 1200],
-             29: [50, 539, 100, 56, "WATER WORKS", "$150", (255, 255, 255)],
-             28: [50, 482, 100, 56, "VENTNOR AVENUE", "$260", (255, 255, 0), 150, 0, 0, 22, 110, 330, 800, 975, 1150],
-             27: [50, 426, 100, 56, "ATLANTIC AVENUE", "$260", (255, 255, 0), 150, 0, 0, 22, 110, 330, 800, 975, 1150],
-             26: [50, 370, 100, 56, "B. & O. RAILROAD", "$200", (255, 255, 255)],
-             25: [50, 314, 100, 56, "ILLINOIS AVENUE", "$240", (255, 0, 0), 100, 0, 0, 20, 100, 300, 750, 925, 1100],
-             24: [50, 258, 100, 56, "INDIANA AVENUE", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875, 1050],
-             23: [50, 202, 100, 56, "CHANCE", "", (255, 255, 255)],
-             22: [50, 150, 100, 52, "KENTUCKY AVENUE", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875, 1050],
-             21: [50, 50, 100, 100, "FREE PARKING", "", (255, 255, 255)],
-             20: [150, 50, 56, 100, "NEW YORK AVENUE", "$200", (255, 140, 0), 100, 0, 0, 16, 80, 220, 600, 800, 1000],
-             19: [206, 50, 56, 100, "TENNESSEE AVENUE", "$180", (255, 140, 0), 100, 0, 0, 14, 70, 200, 550, 750, 950],
-             18: [262, 50, 56, 100, "COMMUNITY CHEST", "", (255, 255, 255)],
-             17: [318, 50, 56, 100, "ST. JAMES PLACE", "$180", (255, 140, 0), 100, 0, 0, 14, 70, 200, 550, 750, 950],
-             16: [374, 50, 56, 100, "PENNSYLVANIA RAILROAD", "$200", (255, 255, 255)],
-             15: [430, 50, 56, 100, "VIRGINIA AVENUE", "$160", (199, 21, 133), 100, 0, 0, 12, 60, 180, 500, 700, 900],
-             14: [486, 50, 56, 100, "STATES AVENUE", "$140", (199, 21, 133), 100, 0, 0, 10, 50, 150, 450, 625, 750],
-             13: [542, 50, 56, 100, "ELECTRIC COMPANY", "$150", (255, 255, 255)],
-             12: [596, 50, 54, 100, "ST. CHARLES PLACE", "$140", (199, 21, 133), 100, 0, 0, 10, 50, 150, 450, 625, 750],
-             11: [650, 50, 100, 100, "JUST VISITING", "", (255, 255, 255)],
-             10: [650, 150, 100, 56, "CONNECTICUT AVENUE", "$120", (175, 238, 238), 50, 0, 0, 8, 40, 100, 300, 450,
-                  600],
-             9: [650, 206, 100, 56, "VERMONT AVENUE", "$100", (175, 238, 238), 50, 0, 0, 6, 30, 90, 270, 400, 550],
-             8: [650, 262, 100, 56, "CHANCE", "", (255, 255, 255)],
-             7: [650, 318, 100, 56, "ORIENTAL AVENUE", "$100", (175, 238, 238), 50, 0, 0, 6, 30, 90, 270, 400, 550],
-             6: [650, 374, 100, 56, "READING RAILROAD", "$200", (255, 255, 255)],
-             5: [650, 430, 100, 56, "INCOME TAX", "PAY $200", (255, 255, 255)],
-             4: [650, 486, 100, 56, "BALTIC AVENUE", "$60", (77, 34, 14), 50, 0, 0, 4, 20, 60, 180, 320, 450],
-             3: [650, 542, 100, 56, "COMMUNITY CHEST", "", (255, 255, 255)],
-             2: [650, 596, 100, 54, "MEDITERRANEAN AVENUE", "$60", (77, 34, 14), 50, 0, 0, 2, 10, 30, 90, 160, 250],
-             'main': (320, 320, 180, 180)
-             }
-n1, n2 = 0, 0
-chest_dict = dict()
-for i, x in enumerate(open('data/chest.txt', encoding='utf-8')):
-    chest_dict[i] = x[:-1]
-num_chest = list(range(len(chest_dict)))
-random.shuffle(num_chest)
+n1 = 0
+n2 = 0
 
 con = sqlite3.connect("data/cards.sqlite")
 cur = con.cursor()
@@ -86,11 +37,169 @@ def abc(a):
     return list_str
 
 
+n = 2
+pole = 'monopENG'
+pole_nazvn = 'ОРИГИНАЛЬНОЕ'
+shet = 0
 size = width, height = 1200, 800
 screen = pygame.display.set_mode(size)
+
 clock = pygame.time.Clock()
 all_sprites = pygame.sprite.Group()
-image = load_image("monop.png")
+anim = pygame.sprite.Group()
+anim2 = pygame.sprite.Group()
+
+font_oplata = pygame.font.Font(None, 60)
+oplata = font_oplata.render("МОНОПОЛИЯ", True, "white")
+screen.blit(oplata, (460, 50))
+image = load_image("nach.png")
+monop = pygame.sprite.Sprite(anim)
+monop.image = image
+monop.rect = monop.image.get_rect()
+monop.rect.x = 350
+monop.rect.y = 680
+anim.draw(screen)
+
+font_oplata = pygame.font.Font(None, 40)
+oplata = font_oplata.render("КОЛИЧЕСТВО ИГРОКОВ:", True, "white")
+screen.blit(oplata, (50, 200))
+oplata = font_oplata.render("{}".format(n), True, "white")
+screen.blit(oplata, (420, 200))
+font_oplata = pygame.font.Font(None, 35)
+oplata = font_oplata.render("ВЫБРАТЬ КОЛИЧЕСТВО ИГРОКОВ:", True, "white")
+screen.blit(oplata, (50, 270))
+pygame.draw.rect(screen, "white", (75, 320, 60, 60), 0)
+font_oplata = pygame.font.Font(None, 50)
+oplata = font_oplata.render("1", True, "black")
+screen.blit(oplata, (96, 335))
+pygame.draw.rect(screen, "white", (175, 320, 60, 60), 0)
+font_oplata = pygame.font.Font(None, 50)
+oplata = font_oplata.render("2", True, "black")
+screen.blit(oplata, (196, 335))
+pygame.draw.rect(screen, "white", (275, 320, 60, 60), 0)
+font_oplata = pygame.font.Font(None, 50)
+oplata = font_oplata.render("3", True, "black")
+screen.blit(oplata, (296, 335))
+pygame.draw.rect(screen, "white", (375, 320, 60, 60), 0)
+font_oplata = pygame.font.Font(None, 50)
+oplata = font_oplata.render("4", True, "black")
+screen.blit(oplata, (396, 335))
+
+font_oplata = pygame.font.Font(None, 40)
+oplata = font_oplata.render("ПОЛЕ:", True, "white")
+screen.blit(oplata, (760, 200))
+oplata = font_oplata.render("{}".format(pole_nazvn), True, "white")
+screen.blit(oplata, (860, 200))
+font_oplata = pygame.font.Font(None, 35)
+oplata = font_oplata.render("ВЫБРАТЬ ПОЛЕ:", True, "white")
+screen.blit(oplata, (760, 270))
+pygame.draw.rect(screen, "white", (760, 320, 171, 60), 0)
+font_oplata = pygame.font.Font(None, 28)
+oplata = font_oplata.render("ОРИГИНАЛЬНОЕ", True, "black")
+screen.blit(oplata, (763, 340))
+pygame.draw.rect(screen, "white", (1000, 320, 171, 60), 0)
+font_oplata = pygame.font.Font(None, 35)
+oplata = font_oplata.render("РУССКОЕ", True, "black")
+screen.blit(oplata, (1023, 340))
+
+mozhno = 0
+image = load_image("01.png")
+monop2 = pygame.sprite.Sprite(anim)
+monop2.image = image
+monop2.rect = monop.image.get_rect()
+monop2.rect.x = 450
+monop2.rect.y = 100
+anim.draw(screen)
+
+while not pygame.sprite.collide_mask(monop, monop2):
+    pygame.draw.rect(screen, "black", (500, 100, 200, 700), 0)
+    monop2.rect.y += 1
+    anim.draw(screen)
+    pygame.display.flip()
+    clock.tick(230)
+while shet != 1:
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEMOTION:
+            if 350 <= event.pos[0] <= 847 and 680 <= event.pos[1] <= 751:
+                if mozhno == 0:
+                    for v in range(10):
+                        image = load_image("{}.png".format(v))
+                        monop = pygame.sprite.Sprite(anim)
+                        monop.image = image
+                        monop.rect = monop.image.get_rect()
+                        monop.rect.x = 450
+                        monop.rect.y = 492
+                        anim.draw(screen)
+                        clock.tick(20)
+                        pygame.display.flip()
+                    mozhno = 1
+            else:
+                if mozhno == 1:
+                    pygame.draw.rect(screen, "black", (500, 100, 200, 580), 0)
+                image = load_image("0.png")
+                monop = pygame.sprite.Sprite(anim2)
+                monop.image = image
+                monop.rect = monop.image.get_rect()
+                monop.rect.x = 450
+                monop.rect.y = 492
+                anim2.draw(screen)
+                mozhno = 0
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 350 <= event.pos[0] <= 800 and 680 <= event.pos[1] <= 738:
+                for v in range(12, 17):
+                    image = load_image("{}.png".format(v))
+                    monop = pygame.sprite.Sprite(anim)
+                    monop.image = image
+                    monop.rect = monop.image.get_rect()
+                    monop.rect.x = 450
+                    monop.rect.y = 492
+                    anim.draw(screen)
+                    clock.tick(15)
+                    pygame.display.flip()
+                clock.tick(4)
+                screen.fill('black')
+                shet = 1
+            if 75 <= event.pos[0] <= 135 and 320 <= event.pos[1] <= 380:
+                pygame.draw.rect(screen, "black", (415, 195, 20, 40), 0)
+                n = 1
+                font_oplata = pygame.font.Font(None, 40)
+                oplata = font_oplata.render("{}".format(n), True, "white")
+                screen.blit(oplata, (420, 200))
+            if 175 <= event.pos[0] <= 235 and 320 <= event.pos[1] <= 380:
+                pygame.draw.rect(screen, "black", (415, 195, 20, 40), 0)
+                n = 2
+                font_oplata = pygame.font.Font(None, 40)
+                oplata = font_oplata.render("{}".format(n), True, "white")
+                screen.blit(oplata, (420, 200))
+            if 275 <= event.pos[0] <= 335 and 320 <= event.pos[1] <= 380:
+                pygame.draw.rect(screen, "black", (415, 195, 20, 40), 0)
+                n = 3
+                font_oplata = pygame.font.Font(None, 40)
+                oplata = font_oplata.render("{}".format(n), True, "white")
+                screen.blit(oplata, (420, 200))
+            if 375 <= event.pos[0] <= 435 and 320 <= event.pos[1] <= 380:
+                pygame.draw.rect(screen, "black", (415, 195, 20, 40), 0)
+                n = 4
+                font_oplata = pygame.font.Font(None, 40)
+                oplata = font_oplata.render("{}".format(n), True, "white")
+                screen.blit(oplata, (420, 200))
+            if 730 <= event.pos[0] <= 901 and 320 <= event.pos[1] <= 380:
+                pygame.draw.rect(screen, "black", (860, 195, 300, 40), 0)
+                pole = 'monopENG'
+                pole_nazvn = 'ОРИГИНАЛЬНОЕ'
+                font_oplata = pygame.font.Font(None, 40)
+                oplata = font_oplata.render("{}".format(pole_nazvn), True, "white")
+                screen.blit(oplata, (860, 200))
+            if 970 <= event.pos[0] <= 1141 and 320 <= event.pos[1] <= 380:
+                pygame.draw.rect(screen, "black", (860, 195, 300, 40), 0)
+                pole = 'monopRUS'
+                pole_nazvn = 'РУССКОЕ'
+                font_oplata = pygame.font.Font(None, 40)
+                oplata = font_oplata.render("{}".format(pole_nazvn), True, "white")
+                screen.blit(oplata, (860, 200))
+    pygame.display.flip()
+
+image = load_image("{}.png".format(pole))
 monop = pygame.sprite.Sprite(all_sprites)
 monop.image = image
 monop.rect = monop.image.get_rect()
@@ -99,6 +208,133 @@ monop.rect.y = 50
 screen.fill(pygame.Color("black"))
 running = True
 changer = 0
+
+if pole == 'monopENG':
+    main_dict = {1: [650, 650, 100, 100, "GO", "", (255, 255, 255)],
+                 40: [594, 650, 56, 100, "BOARDWALK", "$400", (70, 130, 180), 200, 0, 0, 50, 200, 600, 1400, 1700,
+                      2000],
+                 39: [539, 650, 56, 100, "LUXURY TAX", "PAY $100", (255, 255, 255)],
+                 38: [482, 650, 56, 100, "PARK PLACE", "$350", (70, 130, 180), 200, 0, 0, 35, 175, 500, 1100, 1300,
+                      1500],
+                 37: [426, 650, 56, 100, "CHANCE", "", (255, 255, 255)],
+                 36: [370, 650, 56, 100, "SHORT LINE", "$200", (255, 255, 255)],
+                 35: [314, 650, 56, 100, "PENNSYLVANIA AVENUE", "$320", (0, 128, 0), 200, 0, 0, 28, 150, 450, 1000,
+                      1200,
+                      1400],
+                 34: [258, 650, 56, 100, "COMMUNITY CHEST", "", (255, 255, 255)],
+                 33: [202, 650, 56, 100, "NORTH CAROLINA AVENUE", "$300", (0, 128, 0), 200, 0, 0, 26, 130, 390, 900,
+                      1100,
+                      1275],
+                 32: [150, 650, 52, 100, "PACIFIC AVENUE", "$300", (0, 128, 0), 200, 0, 0, 26, 130, 390, 900, 1100,
+                      1275],
+                 31: [50, 650, 100, 100, "GO TO JAIL", "", (255, 255, 255)],
+                 30: [50, 594, 100, 56, "MARVIN GARDENS", "$280", (255, 255, 0), 150, 0, 0, 24, 120, 360, 850, 1025,
+                      1200],
+                 29: [50, 539, 100, 56, "WATER WORKS", "$150", (255, 255, 255)],
+                 28: [50, 482, 100, 56, "VENTNOR AVENUE", "$260", (255, 255, 0), 150, 0, 0, 22, 110, 330, 800, 975,
+                      1150],
+                 27: [50, 426, 100, 56, "ATLANTIC AVENUE", "$260", (255, 255, 0), 150, 0, 0, 22, 110, 330, 800, 975,
+                      1150],
+                 26: [50, 370, 100, 56, "B. & O. RAILROAD", "$200", (255, 255, 255)],
+                 25: [50, 314, 100, 56, "ILLINOIS AVENUE", "$240", (255, 0, 0), 100, 0, 0, 20, 100, 300, 750, 925,
+                      1100],
+                 24: [50, 258, 100, 56, "INDIANA AVENUE", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875, 1050],
+                 23: [50, 202, 100, 56, "CHANCE", "", (255, 255, 255)],
+                 22: [50, 150, 100, 52, "KENTUCKY AVENUE", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875, 1050],
+                 21: [50, 50, 100, 100, "FREE PARKING", "", (255, 255, 255)],
+                 20: [150, 50, 56, 100, "NEW YORK AVENUE", "$200", (255, 140, 0), 100, 0, 0, 16, 80, 220, 600, 800,
+                      1000],
+                 19: [206, 50, 56, 100, "TENNESSEE AVENUE", "$180", (255, 140, 0), 100, 0, 0, 14, 70, 200, 550, 750,
+                      950],
+                 18: [262, 50, 56, 100, "COMMUNITY CHEST", "", (255, 255, 255)],
+                 17: [318, 50, 56, 100, "ST. JAMES PLACE", "$180", (255, 140, 0), 100, 0, 0, 14, 70, 200, 550, 750,
+                      950],
+                 16: [374, 50, 56, 100, "PENNSYLVANIA RAILROAD", "$200", (255, 255, 255)],
+                 15: [430, 50, 56, 100, "VIRGINIA AVENUE", "$160", (199, 21, 133), 100, 0, 0, 12, 60, 180, 500, 700,
+                      900],
+                 14: [486, 50, 56, 100, "STATES AVENUE", "$140", (199, 21, 133), 100, 0, 0, 10, 50, 150, 450, 625, 750],
+                 13: [542, 50, 56, 100, "ELECTRIC COMPANY", "$150", (255, 255, 255)],
+                 12: [596, 50, 54, 100, "ST. CHARLES PLACE", "$140", (199, 21, 133), 100, 0, 0, 10, 50, 150, 450, 625,
+                      750],
+                 11: [650, 50, 100, 100, "JUST VISITING", "", (255, 255, 255)],
+                 10: [650, 150, 100, 56, "CONNECTICUT AVENUE", "$120", (175, 238, 238), 50, 0, 0, 8, 40, 100, 300, 450,
+                      600],
+                 9: [650, 206, 100, 56, "VERMONT AVENUE", "$100", (175, 238, 238), 50, 0, 0, 6, 30, 90, 270, 400, 550],
+                 8: [650, 262, 100, 56, "CHANCE", "", (255, 255, 255)],
+                 7: [650, 318, 100, 56, "ORIENTAL AVENUE", "$100", (175, 238, 238), 50, 0, 0, 6, 30, 90, 270, 400, 550],
+                 6: [650, 374, 100, 56, "READING RAILROAD", "$200", (255, 255, 255)],
+                 5: [650, 430, 100, 56, "INCOME TAX", "PAY $200", (255, 255, 255)],
+                 4: [650, 486, 100, 56, "BALTIC AVENUE", "$60", (77, 34, 14), 50, 0, 0, 4, 20, 60, 180, 320, 450],
+                 3: [650, 542, 100, 56, "COMMUNITY CHEST", "", (255, 255, 255)],
+                 2: [650, 596, 100, 54, "MEDITERRANEAN AVENUE", "$60", (77, 34, 14), 50, 0, 0, 2, 10, 30, 90, 160, 250],
+                 'main': (320, 320, 180, 180)
+                 }
+else:
+    main_dict = {1: [650, 650, 100, 100, "ВПЕРЕД", "", (255, 255, 255)],
+                 40: [594, 650, 56, 100, "АРБАТ", "$400", (70, 130, 180), 200, 0, 0, 50, 200, 600, 1400, 1700,
+                      2000],
+                 39: [539, 650, 56, 100, "СВЕРХНАЛОГ", "PAY $100", (255, 255, 255)],
+                 38: [482, 650, 56, 100, "УЛИЦА МАЛАЯ БРОННАЯ", "$350", (70, 130, 180), 200, 0, 0, 35, 175, 500, 1100,
+                      1300,
+                      1500],
+                 37: [426, 650, 56, 100, "ШАНС", "", (255, 255, 255)],
+                 36: [370, 650, 56, 100, "ЛЕНИНГРАДСКАЯ Ж/Д", "$200", (255, 255, 255)],
+                 35: [314, 650, 56, 100, "КУТУЗОВСКИЙ ПРОСПЕКТ", "$320", (0, 128, 0), 200, 0, 0, 28, 150, 450, 1000,
+                      1200,
+                      1400],
+                 34: [258, 650, 56, 100, "ОБЩЕСТВЕННАЯ КАЗНА", "", (255, 255, 255)],
+                 33: [202, 650, 56, 100, "ГОГОЛЕВСКИЙ БУЛЬВАР", "$300", (0, 128, 0), 200, 0, 0, 26, 130, 390, 900,
+                      1100,
+                      1275],
+                 32: [150, 650, 52, 100, "УЛИЦА ЩУСЕВА", "$300", (0, 128, 0), 200, 0, 0, 26, 130, 390, 900, 1100,
+                      1275],
+                 31: [50, 650, 100, 100, "ОТПРАВЛЯЙТЕСЬ В ТЮРЬМУ", "", (255, 255, 255)],
+                 30: [50, 594, 100, 56, "СМОЛЕНСКАЯ ПЛОЩАДЬ", "$280", (255, 255, 0), 150, 0, 0, 24, 120, 360, 850, 1025,
+                      1200],
+                 29: [50, 539, 100, 56, "ВОДОПРОВОД", "$150", (255, 255, 255)],
+                 28: [50, 482, 100, 56, "УЛИЦА ЧАЙКОВСКОГО", "$260", (255, 255, 0), 150, 0, 0, 22, 110, 330, 800, 975,
+                      1150],
+                 27: [50, 426, 100, 56, "УЛИЦА ГРУЗИНСКИЙ ВАЛ", "$260", (255, 255, 0), 150, 0, 0, 22, 110, 330, 800,
+                      975,
+                      1150],
+                 26: [50, 370, 100, 56, "КАЗАНСКАЯ Ж/Д", "$200", (255, 255, 255)],
+                 25: [50, 314, 100, 56, "ПЛОЩАДЬ МАЯКОВСКОГО", "$240", (255, 0, 0), 100, 0, 0, 20, 100, 300, 750, 925,
+                      1100],
+                 24: [50, 258, 100, 56, "ПУШКИНСКАЯ УЛИЦА", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875,
+                      1050],
+                 23: [50, 202, 100, 56, "ШАНС", "", (255, 255, 255)],
+                 22: [50, 150, 100, 52, "ТВЕРЧКАЯ УЛИЦА", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875, 1050],
+                 21: [50, 50, 100, 100, "БЕСПЛАТНАЯ СТОЯНКА", "", (255, 255, 255)],
+                 20: [150, 50, 56, 100, "РУБЛЕВСКОЕ ШОССЕ", "$200", (255, 140, 0), 100, 0, 0, 16, 80, 220, 600, 800,
+                      1000],
+                 19: [206, 50, 56, 100, "УЛИЦА ВАВИЛОВА", "$180", (255, 140, 0), 100, 0, 0, 14, 70, 200, 550, 750,
+                      950],
+                 18: [262, 50, 56, 100, "ОБЩЕСТВЕННАЯ КАЗНА", "", (255, 255, 255)],
+                 17: [318, 50, 56, 100, "РЯЗАНСКИЙ РОСПЕКТ", "$180", (255, 140, 0), 100, 0, 0, 14, 70, 200, 550, 750,
+                      950],
+                 16: [374, 50, 56, 100, "КУРСКАЯ ЖЕЛЕЗНАЯ ДОРОГА", "$200", (255, 255, 255)],
+                 15: [430, 50, 56, 100, "РОСТОВСКАЯ НАБЕРЕЖНАЯ", "$160", (199, 21, 133), 100, 0, 0, 12, 60, 180, 500,
+                      700,
+                      900],
+                 14: [486, 50, 56, 100, "УЛИЦА СРЕТЕНКА", "$140", (199, 21, 133), 100, 0, 0, 10, 50, 150, 450, 625,
+                      750],
+                 13: [542, 50, 56, 100, "ЭЛЕКТРОКОМПАНИЯ", "$150", (255, 255, 255)],
+                 12: [596, 50, 54, 100, "УЛИЦА ПОЛЯНКА", "$140", (199, 21, 133), 100, 0, 0, 10, 50, 150, 450, 625,
+                      750],
+                 11: [650, 50, 100, 100, "ПРОСТО ПОСЕТИТЕЛЬ", "", (255, 255, 255)],
+                 10: [650, 150, 100, 56, "ПЕРВАЯ ПАРКОВАЯ УЛИЦА", "$120", (175, 238, 238), 50, 0, 0, 8, 40, 100, 300,
+                      450, 600],
+                 9: [650, 206, 100, 56, "УЛИЦА ОГАРЕВА", "$100", (175, 238, 238), 50, 0, 0, 6, 30, 90, 270, 400, 550],
+                 8: [650, 262, 100, 56, "ШАНС", "", (255, 255, 255)],
+                 7: [650, 318, 100, 56, "ВАРШАВСКОЕ ШОССЕ", "$100", (175, 238, 238), 50, 0, 0, 6, 30, 90, 270, 400,
+                     550],
+                 6: [650, 374, 100, 56, "РИЖСКАЯ Ж/Д", "$200", (255, 255, 255)],
+                 5: [650, 430, 100, 56, "ПОДОХОДНЫЙ НАЛОГ", "PAY $200", (255, 255, 255)],
+                 4: [650, 486, 100, 56, "НАГАТИНСКАЯ УЛИЦА", "$60", (77, 34, 14), 50, 0, 0, 4, 20, 60, 180, 320, 450],
+                 3: [650, 542, 100, 56, "ОБЩЕСТВЕННАЯ КАЗНА", "", (255, 255, 255)],
+                 2: [650, 596, 100, 54, "ЖИТНАЯ УЛИЦА", "$60", (77, 34, 14), 50, 0, 0, 2, 10, 30, 90, 160, 250],
+                 'main': (320, 320, 180, 180)
+                 }
 
 
 class Chip:
@@ -113,9 +349,14 @@ class Chip:
         self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
         self.count = 0
         self.money = 1500
-        self.jail_free = False
+        if self.color == 'blue':
+            self.jail_free = True
+        else:
+            self.jail_free = False
         self.house = 0
         self.hotel = 0
+        self.chance_comp_rent = 0
+        self.chance_rail_rent = 0
 
     def ne_hvataet_deneg(self):
         pygame.draw.rect(screen, 'red', (174, 54, 452, 612), 0)
@@ -181,14 +422,20 @@ class Chip:
         self.print_money()
         all_draw_pict()
         pygame.display.flip()
-        image = load_image("monop.png")
+        image = load_image("{}.png".format(pole))
         monop = pygame.sprite.Sprite(all_sprites)
         monop.image = image
         monop.rect = monop.image.get_rect()
         monop.rect.x = 50
         monop.rect.y = 50
         pygame.display.flip()
-        self.card(self.cordinate_chip)
+        if main_dict[self.cordinate_chip][4] == "COMMUNITY CHEST" or \
+                main_dict[self.cordinate_chip][4] == "ОБЩЕСТВЕННАЯ КАЗНА":
+            self.community_chest()
+        elif main_dict[self.cordinate_chip][4] == "CHANCE" or main_dict[self.cordinate_chip][4] == "ШАНС":
+            self.chance()
+        else:
+            self.card(self.cordinate_chip)
 
     def print_money(self):
         pygame.draw.rect(screen, self.color, (780, 45, 390, 60), 0)
@@ -211,9 +458,17 @@ class Chip:
 
     def step(self, num):
         global changer
+        global count
         self.postroyka = 0
         screen.fill((0, 0, 0))
         self.print_money()
+        if self.jail_free == True:
+            pygame.draw.rect(screen, "black", (306, 670, 188, 58), 0)
+            pygame.draw.rect(screen, (255, 255, 255), (310, 674, 180, 50), 0)
+            font_oplata = pygame.font.Font(None, 40)
+            oplata = font_oplata.render("ОПЛАТИТЬ", True, "black")
+            p = (180 - oplata.get_size()[0]) // 2
+            screen.blit(oplata, (310 + p, 687))
         if num[0] == num[1]:
             self.count += 1
         else:
@@ -262,7 +517,7 @@ class Chip:
                     all_draw_pict()
                     clock.tick(2)
                     pygame.display.flip()
-            image = load_image("monop.png")
+            image = load_image("{}.png".format(pole))
             monop = pygame.sprite.Sprite(all_sprites)
             monop.image = image
             monop.rect = monop.image.get_rect()
@@ -290,9 +545,10 @@ class Chip:
                     self.cordinate_chip = 11
                 self.count = 0
         all_draw_pict()
-        if main_dict[self.cordinate_chip][4] == "COMMUNITY CHEST":
+        if main_dict[self.cordinate_chip][4] == "COMMUNITY CHEST" or \
+                main_dict[self.cordinate_chip][4] == "ОБЩЕСТВЕННАЯ КАЗНА":
             self.community_chest()
-        elif main_dict[self.cordinate_chip][4] == "CHANCE":
+        elif main_dict[self.cordinate_chip][4] == "CHANCE" or main_dict[self.cordinate_chip][4] == "ШАНС":
             self.chance()
         else:
             self.card(self.cordinate_chip)
@@ -318,14 +574,18 @@ class Chip:
         text_cc_y = 230
         screen.blit(text_cc, (text_cc_x, text_cc_y))
         fort_chest = pygame.font.Font(None, 40)
-        result = cur.execute("""SELECT ru FROM community_chest WHERE number = ?""",
-                             (numbers1[n1] + 1,)).fetchall()
+        if pole == 'monopENG':
+            result = cur.execute("""SELECT task FROM community_chest WHERE number = ?""",
+                                 (numbers1[n1] + 1,)).fetchall()
+        else:
+            result = cur.execute("""SELECT ru FROM community_chest WHERE number = ?""",
+                                 (numbers1[n1] + 1,)).fetchall()
         text = abc(result[0][0])
         for i in range(len(text)):
             text_chest = fort_chest.render(text[i], True, (0, 0, 0))
             text_chest_x = width // 2 - text_chest.get_width() // 2
             text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
-                                                               // 2 - text_chest.get_height() * len(text) // 2) \
+                                                               // 2 - text_chest.get_height() // 2) \
                            + i * text_chest.get_height()
             screen.blit(text_chest, (text_chest_x, text_chest_y))
         while a != 1:
@@ -398,7 +658,7 @@ class Chip:
                             self.print_money()
                             all_draw_pict()
                             pygame.display.flip()
-                            image = load_image("monop.png")
+                            image = load_image("{}.png".format(pole))
                             monop = pygame.sprite.Sprite(all_sprites)
                             monop.image = image
                             monop.rect = monop.image.get_rect()
@@ -410,7 +670,7 @@ class Chip:
 
     def chance(self):
         a = 0
-        global n2 
+        global n2
         if n2 > 15:
             n2 = 0
         pygame.draw.rect(screen, (255, 155, 65), (290, 190, 620, 420), 0)
@@ -429,7 +689,10 @@ class Chip:
         text_ch_y = 230
         screen.blit(text_ch, (text_ch_x, text_ch_y))
         fort_chance = pygame.font.Font(None, 40)
-        result = cur.execute("""SELECT ru FROM chance WHERE number = ?""", (numbers2[n2] + 1,)).fetchall()
+        if pole == 'monopENG':
+            result = cur.execute("""SELECT task FROM chance WHERE number = ?""", (numbers2[n2] + 1,)).fetchall()
+        else:
+            result = cur.execute("""SELECT ru FROM chance WHERE number = ?""", (numbers2[n2] + 1,)).fetchall()
         text = abc(result[0][0])
         for i in range(len(text)):
             text_chance = fort_chance.render(text[i], True, (0, 0, 0))
@@ -466,38 +729,24 @@ class Chip:
                             self.go_to_card()
 
                         elif n == 4 or n == 5:
-                            d = 41
-                            for i in [6, 16, 26, 36]:
-                                if i < self.cordinate_chip:
-                                    a = self.cordinate_chip - i
-                                    b = 40 - self.cordinate_chip + i
-                                else:
-                                    a = i - self.cordinate_chip
-                                    b = 40 - i + self.cordinate_chip
-                                c = min(a, b)
-                                if c <= d:
-                                    d = c
-                                    e = i
-                            self.cordinate_chip = e
+                            if self.cordinate_chip <= 10:
+                                self.cordinate_chip = 6
+                            elif self.cordinate_chip <= 20:
+                                self.cordinate_chip = 16
+                            elif self.cordinate_chip <= 30:
+                                self.cordinate_chip = 26
+                            elif self.cordinate_chip <= 40:
+                                self.cordinate_chip = 36
+                            self.chance_rail_rent = 1
                             self.go_to_card()
-                            # недоделанно
 
                         elif n == 6:
-                            d = 41
-                            for i in [13, 29]:
-                                if i < self.cordinate_chip:
-                                    a = self.cordinate_chip - i
-                                    b = 40 - self.cordinate_chip + i
-                                else:
-                                    a = i - self.cordinate_chip
-                                    b = 40 - i + self.cordinate_chip
-                                c = min(a, b)
-                                if c <= d:
-                                    d = c
-                                    e = i
-                            self.cordinate_chip = e
+                            if self.cordinate_chip <= 20:
+                                self.cordinate_chip = 13
+                            else:
+                                self.cordinate_chip = 29
+                            self.chance_comp_rent = 1
                             self.go_to_card()
-                            # недоделанно
 
                         elif n == 7:
                             self.money += 50
@@ -508,7 +757,7 @@ class Chip:
                         elif n == 9:
                             self.cordinate_chip -= 3
                             if self.cordinate_chip < 1:
-                                self.cordinate_chip = 40 - self.cordinate_chip
+                                self.cordinate_chip = 40 + self.cordinate_chip
                             self.go_to_card()
 
                         elif n == 10:
@@ -545,7 +794,7 @@ class Chip:
                             self.print_money()
                             all_draw_pict()
                             pygame.display.flip()
-                            image = load_image("monop.png")
+                            image = load_image("{}.png".format(pole))
                             monop = pygame.sprite.Sprite(all_sprites)
                             monop.image = image
                             monop.rect = monop.image.get_rect()
@@ -558,23 +807,29 @@ class Chip:
     def card(self, index):
         a = 0
         if main_dict[index][4] == "GO" or main_dict[index][4] == "FREE PARKING" or \
-                main_dict[index][4] == "JUST VISITING":
+                main_dict[index][4] == "JUST VISITING" or main_dict[index][4] == "ВПЕРЕД" or \
+                main_dict[index][4] == "БЕСПЛАТНАЯ СТОЯНКА" or main_dict[index][4] == "ПРОСТО ПОСЕТИТЕЛЬ":
             pass
         elif "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE" or \
                 main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "ELECTRIC COMPANY" or \
-                main_dict[index][4] == "WATER WORKS" or main_dict[index][4] == "LUXURY TAX":
-            if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE":
+                main_dict[index][4] == "WATER WORKS" or main_dict[index][4] == "LUXURY TAX" or \
+                "Ж/Д" in main_dict[index][4] or "ЖЕЛЕЗНАЯ ДОРОГА" in main_dict[index][4] or \
+                main_dict[index][4] == "ПОДОХОДНЫЙ НАЛОГ" or main_dict[index][4] == "ЭЛЕКТРОКОМПАНИЯ" or \
+                main_dict[index][4] == "ВОДОПРОВОД" or main_dict[index][4] == "СВЕРХНАЛОГ":
+            if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE" or \
+                    "Ж/Д" in main_dict[index][4] or "ЖЕЛЕЗНАЯ ДОРОГА" in main_dict[index][4]:
                 picture = "train"
-            elif main_dict[index][4] == "INCOME TAX":
+            elif main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "ПОДОХОДНЫЙ НАЛОГ":
                 picture = "income"
-            elif main_dict[index][4] == "ELECTRIC COMPANY":
+            elif main_dict[index][4] == "ELECTRIC COMPANY" or main_dict[index][4] == "ЭЛЕКТРОКОМПАНИЯ":
                 picture = "electric"
-            elif main_dict[index][4] == "WATER WORKS":
+            elif main_dict[index][4] == "WATER WORKS" or main_dict[index][4] == "ВОДОПРОВОД":
                 picture = "kran"
-            elif main_dict[index][4] == "LUXURY TAX":
+            elif main_dict[index][4] == "LUXURY TAX" or main_dict[index][4] == "СВЕРХНАЛОГ":
                 picture = "luxury"
             font_street_name = pygame.font.Font(None, 40)
-            if main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "LUXURY TAX":
+            if main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "LUXURY TAX" or \
+                    main_dict[index][4] == "СВЕРХНАЛОГ" or main_dict[index][4] == "ПОДОХОДНЫЙ НАЛОГ":
                 pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
                 pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
                 pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
@@ -606,7 +861,8 @@ class Chip:
                     pict.rect = pict.image.get_rect()
                     pict.rect.x = 300
                     pict.rect.y = 150
-                    if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE":
+                    if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE" or \
+                            "Ж/Д" in main_dict[index][4] or "ЖЕЛЕЗНАЯ ДОРОГА" in main_dict[index][4]:
                         font_rent = pygame.font.Font(None, 36)
                         rent = font_rent.render('Рента', True, (0, 0, 0))
                         screen.blit(rent, (365, 360))
@@ -659,7 +915,8 @@ class Chip:
                     price = font_price.render("{}".format(main_dict[index][5]), True, (0, 0, 0))
                     p = (440 - price.get_size()[0]) // 2
                     screen.blit(price, (180 + p, 600))
-            if main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "LUXURY TAX":
+            if main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "LUXURY TAX" or \
+                    main_dict[index][4] == "СВЕРХНАЛОГ" or main_dict[index][4] == "ПОДОХОДНЫЙ НАЛОГ":
                 pygame.draw.rect(screen, "black", (306, 670, 188, 58), 0)
                 pygame.draw.rect(screen, (255, 255, 255), (310, 674, 180, 50), 0)
                 pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 4), 0)
@@ -682,7 +939,8 @@ class Chip:
                     screen.blit(kupit, (200 + p, 685))
                     p = (180 - nekupit.get_size()[0]) // 2
                     screen.blit(nekupit, (420 + p, 690))
-            if main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "LUXURY TAX":
+            if main_dict[index][4] == "INCOME TAX" or main_dict[index][4] == "LUXURY TAX" or \
+                    main_dict[index][4] == "СВЕРХНАЛОГ" or main_dict[index][4] == "ПОДОХОДНЫЙ НАЛОГ":
                 while a != 1:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -703,7 +961,9 @@ class Chip:
                                 if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
                                     if self.money >= int(main_dict[self.cordinate_chip][5][1:]):
                                         self.money -= int(main_dict[self.cordinate_chip][5][1:])
-                                        if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE":
+                                        if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE" or \
+                                                "Ж/Д" in main_dict[index][4] or "ЖЕЛЕЗНАЯ ДОРОГА" in main_dict[index][
+                                            4]:
                                             sp_railroads[self.color] += 1
                                         else:
                                             sp_predpr[self.color] += 1
@@ -721,7 +981,8 @@ class Chip:
                 else:
                     a = 0
                     if self.color.upper() not in main_dict[self.cordinate_chip][5]:
-                        if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE":
+                        if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE" or \
+                                "Ж/Д" in main_dict[index][4] or "ЖЕЛЕЗНАЯ ДОРОГА" in main_dict[index][4]:
                             pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
                             pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
                             pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
@@ -765,8 +1026,13 @@ class Chip:
                                     if event.type == pygame.MOUSEBUTTONDOWN:
                                         if 190 <= event.pos[0] <= 611 and 670 <= event.pos[1] <= 728:
                                             if self.money >= int(main_dict[self.cordinate_chip][1]):
-                                                self.money -= r * 50
-                                                sp_rent[f] += r * 50
+                                                if self.chance_rail_rent == 1:
+                                                    self.money -= r * 50 * 2
+                                                    sp_rent[f] += r * 50 * 2
+                                                    self.chance_rail_rent = 0
+                                                else:
+                                                    self.money -= r * 50
+                                                    sp_rent[f] += r * 50
                                                 self.print_money()
                                                 a = 1
                                             else:
@@ -815,7 +1081,10 @@ class Chip:
                                     if event.type == pygame.MOUSEBUTTONDOWN:
                                         if 190 <= event.pos[0] <= 611 and 670 <= event.pos[1] <= 728:
                                             r = random.randint(1, 6) + random.randint(1, 6)
-                                            if sp_predpr[f] == 1:
+                                            if self.chance_comp_rent == 1:
+                                                s = 10
+                                                self.chance_comp_rent = 0
+                                            elif sp_predpr[f] == 1:
                                                 s = 4
                                             elif sp_predpr[f] == 1:
                                                 s = 10
@@ -870,7 +1139,8 @@ class Chip:
                                                 a = 1
                                     pygame.display.flip()
                     elif self.color.upper() in main_dict[self.cordinate_chip][5]:
-                        if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE":
+                        if "RAILROAD" in main_dict[index][4] or main_dict[index][4] == "SHORT LINE" or \
+                                "Ж/Д" in main_dict[index][4] or "ЖЕЛЕЗНАЯ ДОРОГА" in main_dict[index][4]:
                             sl = 'железную дорогу'
                         else:
                             sl = 'предприятие'
@@ -914,8 +1184,7 @@ class Chip:
                                         a = 1
                             all_draw_pict()
                             pygame.display.flip()
-
-        elif main_dict[index][4] == "GO TO JAIL":
+        elif main_dict[index][4] == "GO TO JAIL" or main_dict[index][4] == "ОТПРАВЛЯЙТЕСЬ В ТЮРЬМУ":
             pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
             pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
             pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
@@ -1092,26 +1361,45 @@ class Chip:
                             if 850 <= event.pos[0] <= 1100 and 150 <= event.pos[1] <= 210 and h:
                                 self.money -= main_dict[self.cordinate_chip][7]
                                 self.print_money()
-                                time_dict = {0: (10, 10, 20, 20), 1: (10, 40, 20, 20), 2: (40, 10, 20, 20), 3: (40, 40, 20, 20), 4: (20, 20, 30, 30)}
-                                if 0 <= main_dict[self.cordinate_chip][8] <= 4:
-                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + time_dict[main_dict[self.cordinate_chip][8]][0],
-                                        main_dict[self.cordinate_chip][0] + time_dict[main_dict[self.cordinate_chip][8]][1], 
-                                        time_dict[main_dict[self.cordinate_chip][8]][2], time_dict[main_dict[self.cordinate_chip][8]][3]))
+                                if main_dict[self.cordinate_chip][8] == 0:
                                     main_dict[self.cordinate_chip][8] += 1
+                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 10,
+                                                                   main_dict[self.cordinate_chip][0] + 10, 20, 20))
                                     self.house += 1
-                                    if main_dict[self.cordinate_chip][8] == 4:
-                                        main_dict[self.cordinate_chip][9] = 1
-                                        self.house -= 5
-                                        self.hotel += 1
+                                elif main_dict[self.cordinate_chip][8] == 1:
+                                    main_dict[self.cordinate_chip][8] += 1
+                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 10,
+                                                                   main_dict[self.cordinate_chip][0] + 40, 20, 20))
+                                    self.house += 1
+                                elif main_dict[self.cordinate_chip][8] == 2:
+                                    main_dict[self.cordinate_chip][8] += 1
+                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 40,
+                                                                   main_dict[self.cordinate_chip][0] + 10, 20, 20))
+                                    self.house += 1
+                                elif main_dict[self.cordinate_chip][8] == 3:
+                                    main_dict[self.cordinate_chip][8] += 1
+                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 40,
+                                                                   main_dict[self.cordinate_chip][0] + 40, 20, 20))
+                                    self.house += 1
+                                elif main_dict[self.cordinate_chip][8] == 4:
+                                    main_dict[self.cordinate_chip][8] += 1
+                                    main_dict[self.cordinate_chip][9] = 1
+                                    self.homes[self.color].append((main_dict[self.cordinate_chip][1] + 20,
+                                                                   main_dict[self.cordinate_chip][0] + 20, 30, 30))
+                                    self.house = 0
+                                    self.hotel += 1
                                 screen.fill((0, 0, 0))
                                 a = 1
                             if 850 <= event.pos[0] <= 1100 and 500 <= event.pos[1] <= 560:
                                 if main_dict[self.cordinate_chip][9] == 1:
                                     main_dict[self.cordinate_chip][8] -= 1
                                     main_dict[self.cordinate_chip][9] = 0
+                                    self.house = 4
+                                    self.hotel = 0
                                     del self.homes[self.color][-1]
                                 elif main_dict[self.cordinate_chip][8] != 0:
                                     main_dict[self.cordinate_chip][8] -= 1
+                                    self.house -= 1
                                     del self.homes[self.color][-1]
                                 else:
                                     k = main_dict[self.cordinate_chip][5][7:]
@@ -1130,7 +1418,6 @@ class Chip:
                     all_draw_pict()
                     pygame.display.flip()
             else:
-                time_dict = {10, 11, 12, 13, 14}
                 pygame.draw.rect(screen, (0, 0, 0), (176, 56, 448, 608), 0)
                 pygame.draw.rect(screen, main_dict[index][6], (180, 60, 440, 600), 0)
                 pygame.draw.rect(screen, (255, 255, 255), (180, 160, 440, 500), 0)
@@ -1185,7 +1472,6 @@ class Chip:
 
 
 chips = []
-n = 2
 for i in range(n):
     if i == 0:
         chips.append(Chip((20, 40), 'red', i + 1, 15))
@@ -1202,6 +1488,8 @@ def all_draw_pict():
         i.draw()
 
 
+u = 0
+running = True
 sp_predpr = {'red': 0, 'blue': 0, 'orange': 0, 'green': 0}
 sp_railroads = {'red': 0, 'blue': 0, 'orange': 0, 'green': 0}
 sp_rent = {'red': 0, 'blue': 0, 'orange': 0, 'green': 0}
@@ -1225,13 +1513,21 @@ while running:
                     count += 1
                 else:
                     count = 0
-                chips[changer].step(num)
+                if changer == 0:
+                    chips[0].step(num)
+                elif changer == 1:
+                    chips[1].step(num)
+                elif changer == 2:
+                    chips[2].step(num)
+                elif changer == 3:
+                    chips[3].step(num)
                 if num[0] != num[1]:
                     changer += 1
                     if changer >= len(chips):
                         changer = 0
                     count = 0
                 elif count == 3:
+                    go_to_jail[chips[changer].get_color()] = 1
                     changer += 1
                     if changer >= len(chips):
                         changer = 0
@@ -1242,42 +1538,48 @@ while running:
                             if j.get_color() == i:
                                 j.money += sp_rent[i]
                         sp_rent[i] = 0
+                if num[0] == num[1] and go_to_jail[chips[changer].get_color()] == 1:
+                    changer += 1
+                    if changer >= len(chips):
+                        changer = 0
+                    count = 0
             if k > len(chips) and changer != 0:
                 changer -= 1
             if len(chips) == 1:
-                pygame.draw.rect(screen, (60, 170, 60), (174, 54, 452, 612), 0)
-                pygame.draw.rect(screen, (255, 255, 255), (180, 60, 440, 600), 0)
+                screen.fill((0, 0, 0))
+                pygame.draw.rect(screen, (60, 170, 60), (374, 54, 452, 612), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (380, 60, 440, 600), 0)
                 font = pygame.font.Font(None, 50)
                 t = font.render("Игрок {} победил!".format(chips[0].get_color()), True, "black")
-                screen.blit(t, (225, 210))
-                pygame.draw.rect(screen, chips[0].get_color(), (194, 668, 412, 62), 0)
-                pygame.draw.rect(screen, (255, 255, 255), (200, 674, 400, 50), 0)
+                screen.blit(t, (425, 210))
+                pygame.draw.rect(screen, chips[0].get_color(), (394, 688, 412, 62), 0)
+                pygame.draw.rect(screen, (255, 255, 255), (400, 694, 400, 50), 0)
                 font = pygame.font.Font(None, 60)
                 t = font.render("Закончить игру", True, "black")
-                screen.blit(t, (240, 680))
+                screen.blit(t, (440, 700))
                 all_sprites = pygame.sprite.Group()
                 image = load_image("win.png")
                 monop = pygame.sprite.Sprite(all_sprites)
                 monop.image = image
                 monop.rect = monop.image.get_rect()
-                monop.rect.x = 200
+                monop.rect.x = 400
                 monop.rect.y = 300
                 all_sprites.draw(screen)
                 b = 0
                 while b != 1:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
-                            if 194 <= event.pos[0] <= 606 and 668 <= event.pos[1] <= 730:
+                            if 394 <= event.pos[0] <= 806 and 688 <= event.pos[1] <= 750:
                                 b = 1
                     pygame.display.flip()
                 running = False
-
-    pygame.draw.rect(screen, 'white', (840, 640, 270, 60))
-    pygame.draw.rect(screen, 'darkgrey', (840, 640, 270, 60), 3)
-    all_sprites.draw(screen)
-    f3 = pygame.font.Font(None, 34)
-    text3 = f3.render('Бросить кубики', True, (0, 0, 0))
-    screen.blit(text3, (880, 658))
-    all_draw_pict()
-    pygame.display.flip()
+    if running:
+        pygame.draw.rect(screen, 'white', (840, 640, 270, 60))
+        pygame.draw.rect(screen, 'darkgrey', (840, 640, 270, 60), 3)
+        all_sprites.draw(screen)
+        f3 = pygame.font.Font(None, 34)
+        text3 = f3.render('Бросить кубики', True, (0, 0, 0))
+        screen.blit(text3, (880, 658))
+        all_draw_pict()
+        pygame.display.flip()
 pygame.quit()
