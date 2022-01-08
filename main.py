@@ -295,7 +295,8 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.card(self.cordinate_chip)
+            self.chance()
+            #self.card(self.cordinate_chip)
 
     def community_chest(self):
         a = 0
@@ -325,7 +326,7 @@ class Chip:
             text_chest = fort_chest.render(text[i], True, (0, 0, 0))
             text_chest_x = width // 2 - text_chest.get_width() // 2
             text_chest_y = text_cc_y + text_cc.get_height() + ((text_ok_y - 10 - (text_cc_y + text_cc.get_height()))
-                                                               // 2 - text_chest.get_height() // 2) \
+                                                               // 2 - text_chest.get_height() * len(text) // 2) \
                            + i * text_chest.get_height()
             screen.blit(text_chest, (text_chest_x, text_chest_y))
         while a != 1:
