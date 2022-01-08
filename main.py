@@ -1485,7 +1485,6 @@ def all_draw_pict():
         i.draw()
 
 
-u = 0
 running = True
 sp_predpr = {'red': 0, 'blue': 0, 'orange': 0, 'green': 0}
 sp_railroads = {'red': 0, 'blue': 0, 'orange': 0, 'green': 0}
