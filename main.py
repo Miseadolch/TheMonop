@@ -349,10 +349,7 @@ class Chip:
         self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
         self.count = 0
         self.money = 1500
-        if self.color == 'blue':
-            self.jail_free = True
-        else:
-            self.jail_free = False
+        self.jail_free = False
         self.house = 0
         self.hotel = 0
         self.chance_comp_rent = 0
