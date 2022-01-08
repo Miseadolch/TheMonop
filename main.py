@@ -295,8 +295,7 @@ class Chip:
         elif main_dict[self.cordinate_chip][4] == "CHANCE":
             self.chance()
         else:
-            self.chance()
-            #self.card(self.cordinate_chip)
+            self.card(self.cordinate_chip)
 
     def community_chest(self):
         a = 0
