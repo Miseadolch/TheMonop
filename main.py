@@ -318,7 +318,7 @@ class Chip:
         text_cc_y = 230
         screen.blit(text_cc, (text_cc_x, text_cc_y))
         fort_chest = pygame.font.Font(None, 40)
-        result = cur.execute("""SELECT task FROM community_chest WHERE number = ?""",
+        result = cur.execute("""SELECT ru FROM community_chest WHERE number = ?""",
                              (numbers1[n1] + 1,)).fetchall()
         text = abc(result[0][0])
         for i in range(len(text)):
@@ -429,7 +429,7 @@ class Chip:
         text_ch_y = 230
         screen.blit(text_ch, (text_ch_x, text_ch_y))
         fort_chance = pygame.font.Font(None, 40)
-        result = cur.execute("""SELECT task FROM chance WHERE number = ?""", (numbers2[n2] + 1,)).fetchall()
+        result = cur.execute("""SELECT ru FROM chance WHERE number = ?""", (numbers2[n2] + 1,)).fetchall()
         text = abc(result[0][0])
         for i in range(len(text)):
             text_chance = fort_chance.render(text[i], True, (0, 0, 0))
