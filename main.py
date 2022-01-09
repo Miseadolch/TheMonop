@@ -110,6 +110,7 @@ monop2.rect = monop.image.get_rect()
 monop2.rect.x = 450
 monop2.rect.y = 100
 anim.draw(screen)
+y = 0
 
 while not pygame.sprite.collide_mask(monop, monop2):
     pygame.draw.rect(screen, "black", (500, 100, 200, 700), 0)
@@ -145,7 +146,8 @@ while shet != 1:
                 anim2.draw(screen)
                 mozhno = 0
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if 350 <= event.pos[0] <= 800 and 680 <= event.pos[1] <= 738:
+            if 350 <= event.pos[0] <= 800 and 680 <= event.pos[1] <= 738 and y == 0:
+                y = 1
                 for v in range(12, 17):
                     image = load_image("{}.png".format(v))
                     monop = pygame.sprite.Sprite(anim)
@@ -303,7 +305,7 @@ else:
                  24: [50, 258, 100, 56, "ПУШКИНСКАЯ УЛИЦА", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875,
                       1050],
                  23: [50, 202, 100, 56, "ШАНС", "", (255, 255, 255)],
-                 22: [50, 150, 100, 52, "ТВЕРЧКАЯ УЛИЦА", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875, 1050],
+                 22: [50, 150, 100, 52, "ТВЕРCКАЯ УЛИЦА", "$220", (255, 0, 0), 100, 0, 0, 18, 90, 250, 700, 875, 1050],
                  21: [50, 50, 100, 100, "БЕСПЛАТНАЯ СТОЯНКА", "", (255, 255, 255)],
                  20: [150, 50, 56, 100, "РУБЛЕВСКОЕ ШОССЕ", "$200", (255, 140, 0), 100, 0, 0, 16, 80, 220, 600, 800,
                       1000],
@@ -354,6 +356,48 @@ class Chip:
         self.hotel = 0
         self.chance_comp_rent = 0
         self.chance_rail_rent = 0
+        self.ul = [[(770, 280), []], [(830, 280), []], [(890, 280), []], [(950, 280), []], [(1010, 280), []],
+                   [(1070, 280), []], [(1130, 280), []],
+                   [(770, 350), []], [(830, 350), []], [(890, 350), []], [(950, 350), []],
+                   [(1010, 350), []], [(1070, 350), []], [(1130, 350), []],
+                   [(770, 420), []], [(830, 420), []], [(890, 420), []], [(950, 420), []],
+                   [(1010, 420), []], [(1070, 420), []], [(1130, 420), []],
+                   [(770, 490), []], [(830, 420), []], [(890, 490), []], [(950, 490), []],
+                   [(1010, 490), []], [(1070, 490), []], [(1130, 490), []]]
+
+    def ris_ul(self):
+        font = pygame.font.Font(None, 28)
+        t = font.render("Улицы, которыми владеет игрок: ", True, "white")
+        screen.blit(t, (790, 250))
+        for i in self.ul:
+            if i[1] != []:
+                pygame.draw.rect(screen, 'white', (i[0][0], i[0][1], 50, 60))
+                pygame.draw.rect(screen, main_dict[i[1]][6], (i[0][0], i[0][1], 50, 20))
+                z = main_dict[i[1]][4] + ' '
+                x = -1
+                w = 10
+                q = 0
+                while ' ' in z:
+                    if len(z[:z.index(' ')]) >= 8:
+                        for j in range(len(z[:z.index(' ')]) // 7):
+                            font = pygame.font.Font(None, 14)
+                            t = font.render("{}-".format(z[q:q + 6]), True, "black")
+                            screen.blit(t, (i[0][0] + 2, i[0][1] + w))
+                            x = z.index(' ')
+                            w += 10
+                            q += 6
+                        font = pygame.font.Font(None, 14)
+                        t = font.render("{}".format(z[q:x]), True, "black")
+                        screen.blit(t, (i[0][0] + 2, i[0][1] + w))
+                        w += 10
+                    else:
+                        font = pygame.font.Font(None, 14)
+                        t = font.render("{}".format(z[:z.index(' ')]), True, "black")
+                        screen.blit(t, (i[0][0] + 2, i[0][1] + w))
+                        x = z.index(' ')
+                        w += 10
+                    q = 0
+                    z = z[x + 1:]
 
     def ne_hvataet_deneg(self):
         pygame.draw.rect(screen, 'red', (174, 54, 452, 612), 0)
@@ -416,6 +460,7 @@ class Chip:
             self.y = main_dict[self.cordinate_chip][0] + self.ident[1]
         screen.fill((0, 0, 0))
         all_sprites.draw(screen)
+        self.ris_ul()
         self.print_money()
         all_draw_pict()
         pygame.display.flip()
@@ -458,6 +503,7 @@ class Chip:
         global count
         self.postroyka = 0
         screen.fill((0, 0, 0))
+        self.ris_ul()
         self.print_money()
         if self.jail_free == True:
             pygame.draw.rect(screen, "black", (306, 670, 188, 58), 0)
@@ -495,9 +541,11 @@ class Chip:
                     if self.cordinate_chip > 40:
                         screen.fill((0, 0, 0))
                         all_sprites.draw(screen)
+                        self.ris_ul()
                         self.print_money()
                         self.cordinate_chip = 1
                         self.money += 200
+                        self.ris_ul()
                         self.print_money()
                     if 21 >= self.cordinate_chip > 11:
                         self.x = main_dict[self.cordinate_chip][1] + self.ident[0]
@@ -652,6 +700,7 @@ class Chip:
                         else:
                             screen.fill((0, 0, 0))
                             all_sprites.draw(screen)
+                            self.ris_ul()
                             self.print_money()
                             all_draw_pict()
                             pygame.display.flip()
@@ -788,6 +837,7 @@ class Chip:
                         else:
                             screen.fill((0, 0, 0))
                             all_sprites.draw(screen)
+                            self.ris_ul()
                             self.print_money()
                             all_draw_pict()
                             pygame.display.flip()
@@ -944,6 +994,7 @@ class Chip:
                             if 306 <= event.pos[0] <= 494 and 670 <= event.pos[1] <= 728:
                                 if self.money >= int(main_dict[self.cordinate_chip][5][5:]):
                                     self.money -= int(main_dict[self.cordinate_chip][5][5:])
+                                    self.ris_ul()
                                     self.print_money()
                                     a = 1
                                 else:
@@ -964,9 +1015,17 @@ class Chip:
                                             sp_railroads[self.color] += 1
                                         else:
                                             sp_predpr[self.color] += 1
+                                        w = 0
+                                        z = 0
+                                        while w == 0:
+                                            if self.ul[z][1] == []:
+                                                self.ul[z][1] = self.cordinate_chip
+                                                w = 1
+                                            z += 1
                                         main_dict[self.cordinate_chip][
                                             5] = 'BOUGHT_' + self.color.upper() + '_{}'.format(
                                             main_dict[self.cordinate_chip][5])
+                                        self.ris_ul()
                                         self.print_money()
                                         a = 1
                                     else:
@@ -1030,6 +1089,7 @@ class Chip:
                                                 else:
                                                     self.money -= r * 50
                                                     sp_rent[f] += r * 50
+                                                self.ris_ul()
                                                 self.print_money()
                                                 a = 1
                                             else:
@@ -1085,6 +1145,7 @@ class Chip:
                                                 s = 4
                                             elif sp_predpr[f] == 1:
                                                 s = 10
+                                            self.ris_ul()
                                             self.print_money()
                                             b = 1
                                     pygame.display.flip()
@@ -1129,6 +1190,7 @@ class Chip:
                                             if self.money >= r * s:
                                                 self.money -= r * s
                                                 sp_rent[f] += r * s
+                                                self.ris_ul()
                                                 self.print_money()
                                                 a = 1
                                             else:
@@ -1162,6 +1224,7 @@ class Chip:
                                 if event.type == pygame.MOUSEBUTTONDOWN:
                                     if 762 <= event.pos[0] <= 1187 and 640 <= event.pos[1] <= 700:
                                         screen.fill((0, 0, 0))
+                                        self.ris_ul()
                                         self.print_money()
                                         a = 1
                                     elif 835 <= event.pos[0] <= 1117 and 500 <= event.pos[1] <= 560:
@@ -1171,12 +1234,20 @@ class Chip:
                                         else:
                                             self.money += 75
                                             sp_predpr[self.color] -= 1
+                                        w = 0
+                                        z = 0
+                                        while w == 0:
+                                            if self.ul[z][1] == self.cordinate_chip:
+                                                self.ul[z][1] = []
+                                                w = 1
+                                            z += 1
                                         k = main_dict[self.cordinate_chip][5][7:]
                                         main_dict[self.cordinate_chip][5] = k
                                         p = main_dict[self.cordinate_chip][5][
                                             main_dict[self.cordinate_chip][5].index('_') + 1:]
                                         main_dict[self.cordinate_chip][5] = p
                                         screen.fill((0, 0, 0))
+                                        self.ris_ul()
                                         self.print_money()
                                         a = 1
                             all_draw_pict()
@@ -1297,14 +1368,23 @@ class Chip:
                             if 196 <= event.pos[0] <= 384 and 670 <= event.pos[1] <= 728:
                                 if self.money >= int(main_dict[self.cordinate_chip][5][1:]):
                                     self.money -= int(main_dict[self.cordinate_chip][5][1:])
+                                    w = 0
+                                    z = 0
+                                    while w == 0:
+                                        if self.ul[z][1] == []:
+                                            self.ul[z][1] = self.cordinate_chip
+                                            w = 1
+                                        z += 1
                                     main_dict[self.cordinate_chip][5] = 'BOUGHT_' + self.color.upper() + '_{}'.format(
                                         main_dict[self.cordinate_chip][5])
+                                    self.ris_ul()
                                     self.print_money()
                                     a = 1
                                 else:
                                     self.ne_hvataet_deneg()
                                     a = 1
                             elif 416 <= event.pos[0] <= 604 and 670 <= event.pos[1] <= 728:
+                                self.ris_ul()
                                 self.print_money()
                                 a = 1
                     pygame.display.flip()
@@ -1342,21 +1422,22 @@ class Chip:
                     sl = 'дом'
                 else:
                     sl = 'улицу'
-                pygame.draw.rect(screen, (0, 47, 85), (850, 500, 250, 60), 0)
-                pygame.draw.rect(screen, (245, 245, 245), (856, 506, 238, 48), 0)
+                pygame.draw.rect(screen, (0, 47, 85), (850, 570, 250, 60), 0)
+                pygame.draw.rect(screen, (245, 245, 245), (856, 576, 238, 48), 0)
                 f3 = pygame.font.Font(None, 36)
                 text3 = f3.render('Продать {}'.format(sl), True, (0, 0, 0))
-                screen.blit(text3, (880, 518))
-                pygame.draw.rect(screen, 'white', (790, 640, 380, 60))
-                pygame.draw.rect(screen, 'darkgrey', (790, 640, 380, 60), 3)
+                screen.blit(text3, (880, 588))
+                pygame.draw.rect(screen, 'white', (790, 670, 380, 60))
+                pygame.draw.rect(screen, 'darkgrey', (790, 670, 380, 60), 3)
                 f3 = pygame.font.Font(None, 34)
                 text3 = f3.render('Оставить улицу без изменений', True, (0, 0, 0))
-                screen.blit(text3, (800, 658))
+                screen.blit(text3, (800, 687))
                 while a != 1:
                     for event in pygame.event.get():
                         if event.type == pygame.MOUSEBUTTONDOWN:
                             if 850 <= event.pos[0] <= 1100 and 150 <= event.pos[1] <= 210 and h:
                                 self.money -= main_dict[self.cordinate_chip][7]
+                                self.ris_ul()
                                 self.print_money()
                                 if main_dict[self.cordinate_chip][8] == 0:
                                     main_dict[self.cordinate_chip][8] += 1
@@ -1387,7 +1468,7 @@ class Chip:
                                     self.hotel += 1
                                 screen.fill((0, 0, 0))
                                 a = 1
-                            if 850 <= event.pos[0] <= 1100 and 500 <= event.pos[1] <= 560:
+                            if 850 <= event.pos[0] <= 1100 and 570 <= event.pos[1] <= 630:
                                 if main_dict[self.cordinate_chip][9] == 1:
                                     main_dict[self.cordinate_chip][8] -= 1
                                     main_dict[self.cordinate_chip][9] = 0
@@ -1404,12 +1485,21 @@ class Chip:
                                     p = main_dict[self.cordinate_chip][5][
                                         main_dict[self.cordinate_chip][5].index('_') + 1:]
                                     main_dict[self.cordinate_chip][5] = p
+                                    w = 0
+                                    z = 0
+                                    while w == 0:
+                                        if self.ul[z][1] == self.cordinate_chip:
+                                            self.ul[z][1] = []
+                                            w = 1
+                                        z += 1
                                 self.money += main_dict[self.cordinate_chip][7] // 2
                                 screen.fill((0, 0, 0))
+                                self.ris_ul()
                                 self.print_money()
                                 a = 1
-                            elif 790 <= event.pos[0] <= 1173 and 640 <= event.pos[1] <= 703:
+                            if 790 <= event.pos[0] <= 1173 and 670 <= event.pos[1] <= 720:
                                 screen.fill((0, 0, 0))
+                                self.ris_ul()
                                 self.print_money()
                                 a = 1
                     all_draw_pict()
@@ -1457,6 +1547,7 @@ class Chip:
                                     for q in sp_rent:
                                         if h[:h.index('_')].lower() == q:
                                             sp_rent[q] += int(main_dict[self.cordinate_chip][k])
+                                    self.ris_ul()
                                     self.print_money()
                                     a = 1
                                 else:
