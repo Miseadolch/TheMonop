@@ -1600,14 +1600,7 @@ while running:
                     count += 1
                 else:
                     count = 0
-                if changer == 0:
-                    chips[0].step(num)
-                elif changer == 1:
-                    chips[1].step(num)
-                elif changer == 2:
-                    chips[2].step(num)
-                elif changer == 3:
-                    chips[3].step(num)
+                chips[changer].step(num)
                 if num[0] != num[1]:
                     changer += 1
                     if changer >= len(chips):
