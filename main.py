@@ -4,7 +4,7 @@ import pygame
 import random
 import sqlite3
 
-
+pygame.init()
 n1 = 0
 n2 = 0
 
