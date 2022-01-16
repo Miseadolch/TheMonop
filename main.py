@@ -8,6 +8,7 @@ pygame.init()
 n1 = 0
 n2 = 0
 
+running = True
 con = sqlite3.connect("data/cards.sqlite")
 cur = con.cursor()
 numbers1 = list(range(16))
@@ -120,6 +121,9 @@ while not pygame.sprite.collide_mask(monop, monop2):
     clock.tick(230)
 while shet != 1:
     for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            shet = 1
+            running = False
         if event.type == pygame.MOUSEMOTION:
             if 350 <= event.pos[0] <= 847 and 680 <= event.pos[1] <= 751:
                 if mozhno == 0:
@@ -208,7 +212,6 @@ monop.rect = monop.image.get_rect()
 monop.rect.x = 50
 monop.rect.y = 50
 screen.fill(pygame.Color("black"))
-running = True
 changer = 0
 
 if pole == 'monopENG':
@@ -1576,7 +1579,6 @@ def all_draw_pict():
         i.draw()
 
 
-running = True
 sp_predpr = {'red': 0, 'blue': 0, 'orange': 0, 'green': 0}
 sp_railroads = {'red': 0, 'blue': 0, 'orange': 0, 'green': 0}
 sp_rent = {'red': 0, 'blue': 0, 'orange': 0, 'green': 0}
